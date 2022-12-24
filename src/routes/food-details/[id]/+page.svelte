@@ -2,6 +2,8 @@
 	import { goto } from '$app/navigation';
 	/** @type {import('./$types').PageData} */
 
+	import IngredientAndProcedure from '$lib/IngredientAndProcedure.svelte';
+
 	import {
 		Icon,
 		ArrowLeft,
@@ -14,6 +16,20 @@
 	import Owner from '../../../assets/images/chef.png';
 
 	export let data: any;
+
+	let ingredients: [] = [];
+	let procedures: [] = [];
+
+	//get all recipe ingredients
+	Object.entries(data?.food).forEach(([key, value]) => {
+		if (key.match('strIngredient') && value !== null && value !== undefined && value !== '') {
+			ingredients.push(value);
+		}
+		if (key === 'strInstructions') {
+			const procedureSteps = data?.food?.strInstructions?.split(/[./]/g);
+			procedures = procedureSteps.filter((procedure: string) => procedure !== '');
+		}
+	});
 </script>
 
 <div class="container">
@@ -55,6 +71,8 @@
 			<button class="follow__btn">Follow</button>
 		</div>
 	</div>
+
+	<IngredientAndProcedure {ingredients} {procedures} />
 </div>
 
 <style>
