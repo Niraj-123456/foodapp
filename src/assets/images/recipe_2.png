@@ -1,0 +1,322 @@
+
+                    ts.Debug.assertNever(watchFileKind);
+            }
+        }
+        function ensureDynamicPollingWatchFile() {
+            return dynamicPollingWatchFile || (dynamicPollingWatchFile = createDynamicPriorityPollingWatchFile({ getModifiedTime: getModifiedTime, setTimeout: setTimeout }));
+        }
+        function ensureFixedChunkSizePollingWatchFile() {
+            return fixedChunkSizePollingWatchFile || (fixedChunkSizePollingWatchFile = createFixedChunkSizePollingWatchFile({ getModifiedTime: getModifiedTime, setTimeout: setTimeout }));
+        }
+        function updateOptionsForWatchFile(options, useNonPollingWatchers) {
+            if (options && options.watchFile !== undefined)
+                return options;
+            switch (tscWatchFile) {
+                case "PriorityPollingInterval":
+                    return { watchFile: ts.WatchFileKind.PriorityPollingInterval };
+                case "DynamicPriorityPolling":
+                    return { watchFile: ts.WatchFileKind.DynamicPriorityPolling };
+                case "UseFsEvents":
+                    return generateWatchFileOptions(ts.WatchFileKind.UseFsEvents, ts.PollingWatchKind.PriorityInterval, options);
+                case "UseFsEventsWithFallbackDynamicPolling":
+                    return generateWatchFileOptions(ts.WatchFileKind.UseFsEvents, ts.PollingWatchKind.DynamicPriority, options);
+                case "UseFsEventsOnParentDirectory":
+                    useNonPollingWatchers = true;
+                default:
+                    return useNonPollingWatchers ?
+                        generateWatchFileOptions(ts.WatchFileKind.UseFsEventsOnParentDirectory, ts.PollingWatchKind.PriorityInterval, options) :
+                        { watchFile: ts.WatchFileKind.UseFsEvents };
+            }
+        }
+        function generateWatchFileOptions(watchFile, fallbackPolling, options) {
+            var defaultFallbackPolling = options === null || options === void 0 ? void 0 : options.fallbackPolling;
+            return {
+                watchFile: watchFile,
+                fallbackPolling: defaultFallbackPolling === undefined ?
+                    fallbackPolling :
+                    defaultFallbackPolling
+            };
+        }
+        function watchDirectory(directoryName, callback, recursive, options) {
+            if (fsSupportsRecursiveFsWatch) {
+                return fsWatch(directoryName, 1, createFsWatchCallbackForDirectoryWatcherCallback(directoryName, callback, options, useCaseSensitiveFileNames, getCurrentDirectory), recursive, PollingInterval.Medium, ts.getFallbackOptions(options));
+            }
+            if (!hostRecursiveDirectoryWatcher) {
+                hostRecursiveDirectoryWatcher = createDirectoryWatcherSupportingRecursive({
+                    useCaseSensitiveFileNames: useCaseSensitiveFileNames,
+                    getCurrentDirectory: getCurrentDirectory,
+                    fileSystemEntryExists: fileSystemEntryExists,
+                    getAccessibleSortedChildDirectories: getAccessibleSortedChildDirectories,
+                    watchDirectory: nonRecursiveWatchDirectory,
+                    realpath: realpath,
+                    setTimeout: setTimeout,
+                    clearTimeout: clearTimeout
+                });
+            }
+            return hostRecursiveDirectoryWatcher(directoryName, callback, recursive, options);
+        }
+        function nonRecursiveWatchDirectory(directoryName, callback, recursive, options) {
+            ts.Debug.assert(!recursive);
+            var watchDirectoryOptions = updateOptionsForWatchDirectory(options);
+            var watchDirectoryKind = ts.Debug.checkDefined(watchDirectoryOptions.watchDirectory);
+            switch (watchDirectoryKind) {
+                case ts.WatchDirectoryKind.FixedPollingInterval:
+                    return pollingWatchFile(directoryName, function () { return callback(directoryName); }, PollingInterval.Medium, undefined);
+                case ts.WatchDirectoryKind.DynamicPriorityPolling:
+                    return ensureDynamicPollingWatchFile()(directoryName, function () { return callback(directoryName); }, PollingInterval.Medium, undefined);
+                case ts.WatchDirectoryKind.FixedChunkSizePolling:
+                    return ensureFixedChunkSizePollingWatchFile()(directoryName, function () { return callback(directoryName); }, undefined, undefined);
+                case ts.WatchDirectoryKind.UseFsEvents:
+                    return fsWatch(directoryName, 1, createFsWatchCallbackForDirectoryWatcherCallback(directoryName, callback, options, useCaseSensitiveFileNames, getCurrentDirectory), recursive, PollingInterval.Medium, ts.getFallbackOptions(watchDirectoryOptions));
+                default:
+                    ts.Debug.assertNever(watchDirectoryKind);
+            }
+        }
+        function updateOptionsForWatchDirectory(options) {
+            if (options && options.watchDirectory !== undefined)
+                return options;
+            switch (tscWatchDirectory) {
+                case "RecursiveDirectoryUsingFsWatchFile":
+                    return { watchDirectory: ts.WatchDirectoryKind.FixedPollingInterval };
+                case "RecursiveDirectoryUsingDynamicPriorityPolling":
+                    return { watchDirectory: ts.WatchDirectoryKind.DynamicPriorityPolling };
+                default:
+                    var defaultFallbackPolling = options === null || options === void 0 ? void 0 : options.fallbackPolling;
+                    return {
+                        watchDirectory: ts.WatchDirectoryKind.UseFsEvents,
+                        fallbackPolling: defaultFallbackPolling !== undefined ?
+                            defaultFallbackPolling :
+                            undefined
+                    };
+            }
+        }
+        function pollingWatchFile(fileName, callback, pollingInterval, options) {
+            return createSingleWatcherPerName(pollingWatches, useCaseSensitiveFileNames, fileName, callback, function (cb) { return pollingWatchFileWorker(fileName, cb, pollingInterval, options); });
+        }
+        function fsWatch(fileOrDirectory, entryKind, callback, recursive, fallbackPollingInterval, fallbackOptions) {
+            return createSingleWatcherPerName(recursive ? fsWatchesRecursive : fsWatches, useCaseSensitiveFileNames, fileOrDirectory, callback, function (cb) { return fsWatchHandlingExistenceOnHost(fileOrDirectory, entryKind, cb, recursive, fallbackPollingInterval, fallbackOptions); });
+        }
+        function fsWatchHandlingExistenceOnHost(fileOrDirectory, entryKind, callback, recursive, fallbackPollingInterval, fallbackOptions) {
+            var lastDirectoryPartWithDirectorySeparator;
+            var lastDirectoryPart;
+            if (inodeWatching) {
+                lastDirectoryPartWithDirectorySeparator = fileOrDirectory.substring(fileOrDirectory.lastIndexOf(ts.directorySeparator));
+                lastDirectoryPart = lastDirectoryPartWithDirectorySeparator.slice(ts.directorySeparator.length);
+            }
+            var watcher = !fileSystemEntryExists(fileOrDirectory, entryKind) ?
+                watchMissingFileSystemEntry() :
+                watchPresentFileSystemEntry();
+            return {
+                close: function () {
+                    if (watcher) {
+                        watcher.close();
+                        watcher = undefined;
+                    }
+                }
+            };
+            function updateWatcher(createWatcher) {
+                if (watcher) {
+                    sysLog("sysLog:: ".concat(fileOrDirectory, ":: Changing watcher to ").concat(createWatcher === watchPresentFileSystemEntry ? "Present" : "Missing", "FileSystemEntryWatcher"));
+                    watcher.close();
+                    watcher = createWatcher();
+                }
+            }
+            function watchPresentFileSystemEntry() {
+                if (hitSystemWatcherLimit) {
+                    sysLog("sysLog:: ".concat(fileOrDirectory, ":: Defaulting to watchFile"));
+                    return watchPresentFileSystemEntryWithFsWatchFile();
+                }
+                try {
+                    var presentWatcher = fsWatchWorker(fileOrDirectory, recursive, inodeWatching ?
+                        callbackChangingToMissingFileSystemEntry :
+                        callback);
+                    presentWatcher.on("error", function () {
+                        callback("rename", "");
+                        updateWatcher(watchMissingFileSystemEntry);
+                    });
+                    return presentWatcher;
+                }
+                catch (e) {
+                    hitSystemWatcherLimit || (hitSystemWatcherLimit = e.code === "ENOSPC");
+                    sysLog("sysLog:: ".concat(fileOrDirectory, ":: Changing to watchFile"));
+                    return watchPresentFileSystemEntryWithFsWatchFile();
+                }
+            }
+            function callbackChangingToMissingFileSystemEntry(event, relativeName) {
+                var originalRelativeName;
+                if (relativeName && ts.endsWith(relativeName, "~")) {
+                    originalRelativeName = relativeName;
+                    relativeName = relativeName.slice(0, relativeName.length - 1);
+                }
+                if (event === "rename" &&
+                    (!relativeName ||
+                        relativeName === lastDirectoryPart ||
+                        ts.endsWith(relativeName, lastDirectoryPartWithDirectorySeparator))) {
+                    var modifiedTime = getModifiedTime(fileOrDirectory) || ts.missingFileModifiedTime;
+                    if (originalRelativeName)
+                        callback(event, originalRelativeName, modifiedTime);
+                    callback(event, relativeName, modifiedTime);
+                    if (inodeWatching) {
+                        updateWatcher(modifiedTime === ts.missingFileModifiedTime ? watchMissingFileSystemEntry : watchPresentFileSystemEntry);
+                    }
+                    else if (modifiedTime === ts.missingFileModifiedTime) {
+                        updateWatcher(watchMissingFileSystemEntry);
+                    }
+                }
+                else {
+                    if (originalRelativeName)
+                        callback(event, originalRelativeName);
+                    callback(event, relativeName);
+                }
+            }
+            function watchPresentFileSystemEntryWithFsWatchFile() {
+                return watchFile(fileOrDirectory, createFileWatcherCallback(callback), fallbackPollingInterval, fallbackOptions);
+            }
+            function watchMissingFileSystemEntry() {
+                return watchFile(fileOrDirectory, function (_fileName, eventKind, modifiedTime) {
+                    if (eventKind === FileWatcherEventKind.Created) {
+                        modifiedTime || (modifiedTime = getModifiedTime(fileOrDirectory) || ts.missingFileModifiedTime);
+                        if (modifiedTime !== ts.missingFileModifiedTime) {
+                            callback("rename", "", modifiedTime);
+                            updateWatcher(watchPresentFileSystemEntry);
+                        }
+                    }
+                }, fallbackPollingInterval, fallbackOptions);
+            }
+        }
+    }
+    ts.createSystemWatchFunctions = createSystemWatchFunctions;
+    function patchWriteFileEnsuringDirectory(sys) {
+        var originalWriteFile = sys.writeFile;
+        sys.writeFile = function (path, data, writeBom) {
+            return ts.writeFileEnsuringDirectories(path, data, !!writeBom, function (path, data, writeByteOrderMark) { return originalWriteFile.call(sys, path, data, writeByteOrderMark); }, function (path) { return sys.createDirectory(path); }, function (path) { return sys.directoryExists(path); });
+        };
+    }
+    ts.patchWriteFileEnsuringDirectory = patchWriteFileEnsuringDirectory;
+    function getNodeMajorVersion() {
+        if (typeof process === "undefined") {
+            return undefined;
+        }
+        var version = process.version;
+        if (!version) {
+            return undefined;
+        }
+        var dot = version.indexOf(".");
+        if (dot === -1) {
+            return undefined;
+        }
+        return parseInt(version.substring(1, dot));
+    }
+    ts.getNodeMajorVersion = getNodeMajorVersion;
+    ts.sys = (function () {
+        var byteOrderMarkIndicator = "\uFEFF";
+        function getNodeSystem() {
+            var nativePattern = /^native |^\([^)]+\)$|^(internal[\\/]|[a-zA-Z0-9_\s]+(\.js)?$)/;
+            var _fs = require("fs");
+            var _path = require("path");
+            var _os = require("os");
+            var _crypto;
+            try {
+                _crypto = require("crypto");
+            }
+            catch (_a) {
+                _crypto = undefined;
+            }
+            var activeSession;
+            var profilePath = "./profile.cpuprofile";
+            var Buffer = require("buffer").Buffer;
+            var nodeVersion = getNodeMajorVersion();
+            var isNode4OrLater = nodeVersion >= 4;
+            var isLinuxOrMacOs = process.platform === "linux" || process.platform === "darwin";
+            var platform = _os.platform();
+            var useCaseSensitiveFileNames = isFileSystemCaseSensitive();
+            var fsRealpath = !!_fs.realpathSync.native ? process.platform === "win32" ? fsRealPathHandlingLongPath : _fs.realpathSync.native : _fs.realpathSync;
+            var fsSupportsRecursiveFsWatch = isNode4OrLater && (process.platform === "win32" || process.platform === "darwin");
+            var getCurrentDirectory = ts.memoize(function () { return process.cwd(); });
+            var _b = createSystemWatchFunctions({
+                pollingWatchFileWorker: fsWatchFileWorker,
+                getModifiedTime: getModifiedTime,
+                setTimeout: setTimeout,
+                clearTimeout: clearTimeout,
+                fsWatchWorker: fsWatchWorker,
+                useCaseSensitiveFileNames: useCaseSensitiveFileNames,
+                getCurrentDirectory: getCurrentDirectory,
+                fileSystemEntryExists: fileSystemEntryExists,
+                fsSupportsRecursiveFsWatch: fsSupportsRecursiveFsWatch,
+                getAccessibleSortedChildDirectories: function (path) { return getAccessibleFileSystemEntries(path).directories; },
+                realpath: realpath,
+                tscWatchFile: process.env.TSC_WATCHFILE,
+                useNonPollingWatchers: process.env.TSC_NONPOLLING_WATCHER,
+                tscWatchDirectory: process.env.TSC_WATCHDIRECTORY,
+                inodeWatching: isLinuxOrMacOs,
+                sysLog: sysLog,
+            }), watchFile = _b.watchFile, watchDirectory = _b.watchDirectory;
+            var nodeSystem = {
+                args: process.argv.slice(2),
+                newLine: _os.EOL,
+                useCaseSensitiveFileNames: useCaseSensitiveFileNames,
+                write: function (s) {
+                    process.stdout.write(s);
+                },
+                getWidthOfTerminal: function () {
+                    return process.stdout.columns;
+                },
+                writeOutputIsTTY: function () {
+                    return process.stdout.isTTY;
+                },
+                readFile: readFile,
+                writeFile: writeFile,
+                watchFile: watchFile,
+                watchDirectory: watchDirectory,
+                resolvePath: function (path) { return _path.resolve(path); },
+                fileExists: fileExists,
+                directoryExists: directoryExists,
+                createDirectory: function (directoryName) {
+                    if (!nodeSystem.directoryExists(directoryName)) {
+                        try {
+                            _fs.mkdirSync(directoryName);
+                        }
+                        catch (e) {
+                            if (e.code !== "EEXIST") {
+                                throw e;
+                            }
+                        }
+                    }
+                },
+                getExecutingFilePath: function () {
+                    return __filename;
+                },
+                getCurrentDirectory: getCurrentDirectory,
+                getDirectories: getDirectories,
+                getEnvironmentVariable: function (name) {
+                    return process.env[name] || "";
+                },
+                readDirectory: readDirectory,
+                getModifiedTime: getModifiedTime,
+                setModifiedTime: setModifiedTime,
+                deleteFile: deleteFile,
+                createHash: _crypto ? createSHA256Hash : generateDjb2Hash,
+                createSHA256Hash: _crypto ? createSHA256Hash : undefined,
+                getMemoryUsage: function () {
+                    if (global.gc) {
+                        global.gc();
+                    }
+                    return process.memoryUsage().heapUsed;
+                },
+                getFileSize: function (path) {
+                    try {
+                        var stat = statSync(path);
+                        if (stat === null || stat === void 0 ? void 0 : stat.isFile()) {
+                            return stat.size;
+                        }
+                    }
+                    catch (_a) { }
+                    return 0;
+                },
+                exit: function (exitCode) {
+                    disableCPUProfiler(function () { return process.exit(exitCode); });
+                },
+                enableCPUProfiler: enableCPUProfiler,
+                disableCPUProfiler: disableCPUProfiler,
+                cpuProfilingEnabled: function () { return !!activeSession || ts.contains(process.execArgv, "--cpu-prof") || ts.contains(process.execArgv, "--prof"); },
+     

@@ -1,0 +1,23 @@
+t = void 0;
+                var lastChild = children[children.length - 1];
+                if ((lastChild === null || lastChild === void 0 ? void 0 : lastChild.kind) === 281 /* SyntaxKind.JsxElement */
+                    && !tagNamesAreEquivalent(lastChild.openingElement.tagName, lastChild.closingElement.tagName)
+                    && tagNamesAreEquivalent(opening.tagName, lastChild.closingElement.tagName)) {
+                    // when an unclosed JsxOpeningElement incorrectly parses its parent's JsxClosingElement,
+                    // restructure (<div>(...<span>...</div>)) --> (<div>(...<span>...</>)</div>)
+                    // (no need to error; the parent will error)
+                    var end = lastChild.children.end;
+                    var newLast = finishNode(factory.createJsxElement(lastChild.openingElement, lastChild.children, finishNode(factory.createJsxClosingElement(finishNode(factory.createIdentifier(""), end, end)), end, end)), lastChild.openingElement.pos, end);
+                    children = createNodeArray(__spreadArray(__spreadArray([], children.slice(0, children.length - 1), true), [newLast], false), children.pos, end);
+                    closingElement = lastChild.closingElement;
+                }
+                else {
+                    closingElement = parseJsxClosingElement(opening, inExpressionContext);
+                    if (!tagNamesAreEquivalent(opening.tagName, closingElement.tagName)) {
+                        if (openingTag && ts.isJsxOpeningElement(openingTag) && tagNamesAreEquivalent(closingElement.tagName, openingTag.tagName)) {
+                            // opening incorrectly matched with its parent's closing -- put error on opening
+                            parseErrorAtRange(opening.tagName, ts.Diagnostics.JSX_element_0_has_no_corresponding_closing_tag, ts.getTextOfNodeFromSourceText(sourceText, opening.tagName));
+                        }
+                        else {
+                            // other opening/closing mismatches -- put error on closing
+                            parseErrorAtRange(closingElement.tagName, ts.Diagnostics.Expected_corresponding_JSX_closing_tag_for_0, ts.getTextOfNodeFromSourceText(sourceTe
