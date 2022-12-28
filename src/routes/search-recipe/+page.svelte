@@ -1,13 +1,26 @@
 <script lang="ts">
+	import TopNavigation from '$lib/TopNavigation.svelte';
 	import SearchInput from '$lib/SearchInput.svelte';
 	import SearchCard from '$lib/SearchCard.svelte';
 
 	import { Icon, ArrowLeft } from 'svelte-hero-icons';
-	import { onMount } from 'svelte';
 
 	let searchQuery: string = '';
 	let foods: any = [];
 	let loading: boolean = false;
+	let timer: any;
+	let showLeftIcon: boolean = true;
+	let heading: string = 'Search recipes';
+	let showRightIcon: boolean = false;
+
+	$: searchQuery, searchFoodByName();
+
+	const debounce = (e: any) => {
+		clearTimeout(timer);
+		timer = setTimeout(() => {
+			searchQuery = e.target.value;
+		}, 750);
+	};
 
 	const searchFoodByName = async () => {
 		try {
@@ -23,20 +36,12 @@
 			console.log(ex);
 		}
 	};
-
-	onMount(() => {
-		searchFoodByName();
-		console.log(foods);
-	});
 </script>
 
 <div class="container">
-	<div class="navigate">
-		<Icon src={ArrowLeft} size="20px" class="text-[#292D32]" />
-		<h3>Search recipes</h3>
-	</div>
+	<TopNavigation {showLeftIcon} {heading} {showRightIcon} />
 
-	<SearchInput {searchQuery} {searchFoodByName} />
+	<SearchInput {debounce} />
 
 	<div class="search__result__wrapper">
 		<h3>Recent Search</h3>
@@ -46,7 +51,7 @@
 		{:else if foods && foods.length > 0}
 			<div class="search__result">
 				{#each foods as food}
-					<a href={`/food-details/${food?.idMeal}`}>
+					<a href={`/recipe-details/${food?.idMeal}`}>
 						<SearchCard {food} />
 					</a>
 				{/each}
@@ -62,21 +67,6 @@
 		width: 100%;
 		min-height: inherit;
 		padding: 50px 30px;
-	}
-	.navigate {
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-	}
-
-	.navigate > h3 {
-		display: flex;
-		flex: 1;
-		justify-content: center;
-		font-size: 18px;
-		font-weight: 600;
-		line-height: 27px;
-		color: #181818;
 	}
 
 	.search__result__wrapper {

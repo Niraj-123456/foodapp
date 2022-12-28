@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	/** @type {import('./$types').PageData} */
 
+	import TopNavigation from '$lib/TopNavigation.svelte';
 	import IngredientAndProcedure from '$lib/IngredientAndProcedure.svelte';
+	import Owner from '../../../assets/images/chef.png';
 
 	import {
 		Icon,
@@ -11,40 +12,49 @@
 		Clock,
 		Bookmark,
 		Star,
-		LocationMarker
+		LocationMarker,
+		Heart,
+		Play
 	} from 'svelte-hero-icons';
-	import Owner from '../../../assets/images/chef.png';
 
 	export let data: any;
 
+	let showLeftIcon: boolean = true;
+	let heading: string = '';
+	let showRightIcon: boolean = true;
 	let ingredients: [] = [];
+	let measurements: [] = [];
 	let procedures: [] = [];
+	let isFollowing: boolean = false;
 
-	//get all recipe ingredients
-	Object.entries(data?.food).forEach(([key, value]) => {
+	//get all recipe ingredients and procedures
+	Object.entries(data?.recipe).forEach(([key, value]: any) => {
 		if (key.match('strIngredient') && value !== null && value !== undefined && value !== '') {
 			ingredients.push(value);
 		}
+		if (key.match('strMeasure') && value !== null && value !== undefined && value !== ' ') {
+			measurements.push(value);
+		}
 		if (key === 'strInstructions') {
-			const procedureSteps = data?.food?.strInstructions?.split(/[./]/g);
+			const procedureSteps = data?.recipe?.strInstructions?.split(/[./]/g);
 			procedures = procedureSteps.filter((procedure: string) => procedure !== '');
 		}
 	});
 </script>
 
 <div class="container">
-	<div class="navigation">
-		<Icon src={ArrowLeft} size="25px" class="text-sm" on:click={() => goto('/login')} on:keydown />
-		<Icon src={DotsHorizontal} size="35px" class="text-sm" />
-	</div>
+	<TopNavigation {showLeftIcon} {heading} {showRightIcon} />
 
-	<div class="food__wrapper">
-		<img src={data?.food?.strMealThumb} alt={data?.food?.strMeal} />
+	<div class="recipe__wrapper">
+		<img src={data?.recipe?.strMealThumb} alt={data?.recipe?.strMeal} />
 		<div class="content">
 			<div class="rating">
 				<Icon src={Star} solid size="15px" class="text-[#FFAD30]" />
 				<span>4.0</span>
 			</div>
+			<span class="play__icon" on:click={() => console.log('play')} on:keydown
+				><Icon src={Play} size="60px" class="text-white opacity-50" /></span
+			>
 			<div class="preparation__time">
 				<Icon src={Clock} size="18px" />
 				<span>20 min</span>
@@ -53,10 +63,10 @@
 		</div>
 	</div>
 
-	<div class="food__details">
-		<div class="food__name__review">
+	<div class="recipe__details">
+		<div class="recipe__name__review">
 			<h1>
-				{data?.food?.strMeal}
+				{data?.recipe?.strMeal}
 			</h1>
 			<span class="reviews"> (13k Reviews) </span>
 		</div>
@@ -68,26 +78,31 @@
 					<Icon src={LocationMarker} solid size="14px" class="text-[#71B1A1]" /> Lagos, Nigeria
 				</span>
 			</div>
-			<button class="follow__btn">Follow</button>
+			<button class="follow__btn" on:click={() => (isFollowing = !isFollowing)}>
+				{!isFollowing ? 'Follow' : 'Following'}
+				<Icon
+					src={Heart}
+					size="22px"
+					solid
+					class={`${
+						isFollowing ? 'text-red-500' : 'text-white'
+					} transition-[color] ease-in-out delay-1s`}
+				/>
+			</button>
 		</div>
 	</div>
 
-	<IngredientAndProcedure {ingredients} {procedures} />
+	<IngredientAndProcedure {ingredients} {measurements} {procedures} />
 </div>
 
 <style>
 	.container {
 		width: 100%;
 		padding-inline: 30px;
+		padding-block: 50px 30px;
 	}
 
-	.navigation {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.food__wrapper {
+	.recipe__wrapper {
 		margin-top: 10px;
 		width: 100%;
 		height: 150px;
@@ -96,7 +111,7 @@
 		position: relative;
 	}
 
-	.food__wrapper > img {
+	.recipe__wrapper > img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
@@ -129,6 +144,12 @@
 		font-size: 12px;
 	}
 
+	.play__icon {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
 	.preparation__time {
 		display: flex;
 		align-items: center;
@@ -140,17 +161,17 @@
 		font-size: 12px;
 	}
 
-	.food__details {
+	.recipe__details {
 		margin-top: 10px;
 	}
 
-	.food__name__review {
+	.recipe__name__review {
 		display: flex;
 		justify-content: space-between;
 		line-height: 25px;
 	}
 
-	.food__name__review > h1 {
+	.recipe__name__review > h1 {
 		font-size: 18px;
 		font-weight: 600;
 		max-width: 194px;
@@ -189,10 +210,13 @@
 		background: #129575;
 		color: #fff;
 		margin-left: auto;
-		padding: 10px 30px;
+		padding: 10px 25px;
 		font-size: 14px;
 		font-weight: 600;
 		line-height: 16px;
 		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		gap: 5px;
 	}
 </style>

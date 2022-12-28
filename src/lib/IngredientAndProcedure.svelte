@@ -4,6 +4,7 @@
 
 	export let ingredients: [];
 	export let procedures: [];
+	export let measurements: [];
 
 	const options = [
 		{ id: 1, value: 'ingredient' },

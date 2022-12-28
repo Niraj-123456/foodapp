@@ -33,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@mui/icons-material": "^5.11.0"
+		"@mui/icons-material": "^5.11.0",
+		"svelte-video-player": "^1.2.5"
 	}
 }
