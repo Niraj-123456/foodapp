@@ -1,10 +1,15 @@
 <script lang="ts">
 	import TopNavigation from '$lib/TopNavigation.svelte';
 	import ChefProfileImg from '../../assets/images/chef-profile.png';
+	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
 
 	let showLeftIcon: boolean = true,
 		heading: string = 'Profile',
 		showRightIcon: boolean = true;
+
+	const navOptions = ['Recipe', 'Videos', 'Tag'];
+
+	let currentOption = 0;
 </script>
 
 <div class="container">
@@ -22,10 +27,34 @@
 				Following <span>259</span>
 			</div>
 		</div>
-		<div class="profile_desc">
+		<div class="profile__desc">
 			<h1>Afuwape Abiodun</h1>
 			<p>Chef</p>
-			<h6>Private Chef Passionate about food and life 🥘🍲🍝🍱 More...</h6>
+			<div class="chef__bio">
+				<p>Private Chef Passionate about food and life 🥘🍲🍝🍱</p>
+				<span>More...</span>
+			</div>
+		</div>
+		<ul class="nav__btns">
+			{#each navOptions as option, index}
+				<li
+					class={currentOption === index ? 'active' : ''}
+					on:click={() => (currentOption = index)}
+					on:keydown
+				>
+					{option}
+				</li>
+			{/each}
+		</ul>
+		<div class="recipe__card__wrapper">
+			{#if currentOption === 0}
+				<RecipieCardWide />
+				<RecipieCardWide />
+				<RecipieCardWide />
+				<RecipieCardWide />
+				<RecipieCardWide />
+				<RecipieCardWide />
+			{/if}
 		</div>
 	</div>
 </div>
@@ -72,26 +101,73 @@
 		object-fit: contain;
 	}
 
-	.profile_desc {
+	.profile__desc {
 		margin-top: 10px;
+		min-height: 10px;
 	}
 
-	.profile_desc > h1 {
+	.profile__desc > h1 {
 		font-size: 18px;
 		font-weight: 600;
 		line-height: 24px;
 	}
 
-	.profile_desc > p {
+	.profile__desc > p {
 		font-size: 12px;
 		color: var(--color-gray-2);
 	}
 
-	.profile_desc > h6 {
+	.chef__bio {
 		max-width: 250px;
 		margin-top: 10px;
+	}
+
+	.chef__bio > p,
+	.chef__bio > span {
 		color: var(--color-gray-3);
 		font-size: 14px;
 		line-height: 20px;
+	}
+
+	.chef__bio > span {
+		color: #71b1a1;
+	}
+
+	.nav__btns {
+		margin-top: 15px;
+		padding-block: 13px;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.nav__btns li {
+		color: #71b1a1;
+		font-weight: 600;
+		border-radius: 10px;
+		padding: 10px 28px;
+		transition: all 450ms ease-in-out;
+	}
+
+	.nav__btns li.active {
+		background: #129575;
+		color: #fff;
+	}
+
+	.recipe__card__wrapper {
+		margin-top: 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		animation: slideFromLeft 1s;
+	}
+
+	@keyframes slideFromLeft {
+		from {
+			transform: translateX(-100%);
+		}
+
+		to {
+			transform: translateX(0%);
+		}
 	}
 </style>

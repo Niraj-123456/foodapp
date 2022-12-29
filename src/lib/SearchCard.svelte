@@ -74,5 +74,6 @@
 	.content > p {
 		margin-top: 3px;
 		font-size: 9px;
+		color: var(--color-gray);
 	}
 </style>
