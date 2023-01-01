@@ -8,8 +8,20 @@
 		ChatAlt,
 		Bookmark
 	} from 'svelte-hero-icons';
+	import { onMount } from 'svelte';
 	export let showLeftIcon: boolean, heading: string, showRightIcon: boolean;
 	let openDialog: boolean = false;
+	let dialogRef: any;
+
+	// onMount(() => {
+	// 	console.log(dialogRef);
+	// 	function handleClickOutside(e: any) {
+	// 		if (dialogRef?.current && !dialogRef?.current?.contains(e.target)) {
+	// 			console.log('clicked outside');
+	// 		}
+	// 	}
+	// 	document.addEventListener('mousedown', handleClickOutside);
+	// });
 </script>
 
 <div class="container">
@@ -32,8 +44,10 @@
 	{/if}
 </div>
 <dialog open={openDialog} class="option__modal">
-	<ul class="options">
-		<li><span><Icon src={Share} size="20px" /></span>Share</li>
+	<ul class="options" bind:this={dialogRef}>
+		<li on:click={() => console.log('clicked')} on:keydown>
+			<span><Icon src={Share} size="20px" /></span>Share
+		</li>
 		<li><span><Icon src={Star} solid size="20px" /></span>Rate Recipe</li>
 		<li><span><Icon src={ChatAlt} size="20px" /></span>Review</li>
 		<li><span><Icon src={Bookmark} solid size="20px" /></span>Unsave</li>
@@ -57,7 +71,7 @@
 		width: 100%;
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0);
-		z-index: 1;
+		z-index: 9999 !important;
 	}
 
 	.options {

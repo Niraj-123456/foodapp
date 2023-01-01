@@ -59,8 +59,6 @@
 					<div class="procedure">
 						<div>Step {index + 1}</div>
 						<p>
-							<!-- Lorem Ipsum tempor incididunt ut labore et dolore,in voluptate velit esse cillum
-                        dolore eu fugiat nulla pariatur? -->
 							{procedure}.
 						</p>
 					</div>

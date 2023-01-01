@@ -1,29 +1,20 @@
 <script>
-	import { Icon, Star, Clock, Bookmark } from 'svelte-hero-icons';
-	import RecipeImg from '../assets/images/recipe_2.png';
-	import RecipeImg2 from '../assets/images/recipe_3.jpeg';
+	import { Icon, Star, Clock, Bookmark, Play } from 'svelte-hero-icons';
+	import RecipeImg2 from '../assets/images/recipe_2.png';
 </script>
 
 <div class="card">
 	<img src={RecipeImg2} alt="recipe" />
 	<div class="card__content">
 		<div class="rating">
-			<span
-				><Icon src={Star} solid size="9px" class="text-[#FFAD30]" />
-				<p>4.0</p></span
-			>
+			<Icon src={Star} solid size="9px" class="text-[#FFAD30]" />
+			<p>4.0</p>
 		</div>
-
-		<div class="content">
-			<div class="recipe__name">
-				<h1>Traditional spare ribs baked</h1>
-				<p>By Chef John</p>
-			</div>
-			<div class="preparation__time">
-				<Icon src={Clock} size="18px" />
-				<span>20 min</span>
-				<Icon src={Bookmark} size="20px" class="text-[#130F26] rounded-full p-[3px] bg-white" />
-			</div>
+		<Icon src={Play} size="55px" class="text-white opacity-[0.5] flex w-full" />
+		<div class="preparation__time">
+			<Icon src={Clock} size="18px" />
+			<span>20 min</span>
+			<Icon src={Bookmark} size="20px" class="text-[#130F26] rounded-full p-[3px] bg-white" />
 		</div>
 	</div>
 </div>
@@ -38,6 +29,7 @@
 			transform: translateX(0%);
 		}
 	}
+
 	.card {
 		width: 100%;
 		height: 150px;
@@ -64,48 +56,22 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		align-items: flex-end;
 		padding: 10px;
 	}
 
 	.rating {
 		display: flex;
-		justify-content: flex-end;
-	}
-
-	.rating > span {
-		display: flex;
 		align-items: center;
+		justify-content: flex-end;
 		gap: 4px;
 		background: #ffe1b3;
 		border-radius: 20px;
 		padding: 1px 7.5px;
 	}
 
-	.rating > span > p {
+	.rating > p {
 		font-size: 10px;
-	}
-
-	.content {
-		color: var(--color-white);
-		line-height: 21px;
-		display: flex;
-		align-items: flex-end;
-	}
-
-	.recipe__name {
-		max-width: 200px;
-	}
-
-	.content > .recipe__name > h1 {
-		font-size: 14px;
-		font-weight: 600;
-		line-height: 16px;
-	}
-
-	.content > .recipe__name > p {
-		margin-top: 3px;
-		font-size: 9px;
-		color: var(--color-gray);
 	}
 
 	.preparation__time {

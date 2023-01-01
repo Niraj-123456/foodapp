@@ -2,6 +2,7 @@
 	import TopNavigation from '$lib/TopNavigation.svelte';
 	import ChefProfileImg from '../../assets/images/chef-profile.png';
 	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
+	import RecipeVideoCard from '$lib/RecipeVideoCard.svelte';
 
 	let showLeftIcon: boolean = true,
 		heading: string = 'Profile',
@@ -54,6 +55,12 @@
 				<RecipieCardWide />
 				<RecipieCardWide />
 				<RecipieCardWide />
+			{:else if currentOption === 1}
+				<RecipeVideoCard />
+				<RecipeVideoCard />
+				<RecipeVideoCard />
+				<RecipeVideoCard />
+				<RecipeVideoCard />
 			{/if}
 		</div>
 	</div>
@@ -158,16 +165,5 @@
 		display: flex;
 		flex-direction: column;
 		gap: 20px;
-		animation: slideFromLeft 1s;
-	}
-
-	@keyframes slideFromLeft {
-		from {
-			transform: translateX(-100%);
-		}
-
-		to {
-			transform: translateX(0%);
-		}
 	}
 </style>

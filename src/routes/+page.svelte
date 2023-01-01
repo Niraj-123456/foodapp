@@ -1,9 +1,38 @@
-<script>
+<script lang="ts">
 	import ChefHatIcon from '../assets/images/chef_hat.png';
 	import { ArrowRight } from 'svelte-hero-icons';
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	import Button from '$lib/Button.svelte';
+	import { miniAppInitializer } from '../miniAppInitializer';
+
+	let isLogin,
+		canRender = false;
+	let errMsg;
+
+	const handleInit = () => {
+		miniAppInitializer()
+			.then((user: any) => {
+				if (user?.user_profile) {
+					console.log(user?.user_profile);
+					isLogin = true;
+					canRender = true;
+					goto('/profile');
+				} else {
+					goto('/');
+				}
+			})
+			.catch((e) => {
+				errMsg = e.message;
+				isLogin = false;
+				canRender = false;
+			});
+	};
+
+	onMount(() => {
+		handleInit();
+	});
 </script>
 
 <div class="container">

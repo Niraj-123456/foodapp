@@ -7,7 +7,12 @@
 	<span>Or Sign in With</span>
 	<div class="options">
 		<img src={FacebookIcon} alt="facebook" on:click={() => console.log('facebook')} on:keydown />
-		<img src={GoogleIcon} alt="google" on:click={() => console.log('google')} on:keydown />
+		<img
+			src={GoogleIcon}
+			alt="google"
+			on:click={() => window?.miniapp.login('google')}
+			on:keydown
+		/>
 	</div>
 </div>
 
