@@ -3,13 +3,40 @@
 	import UserAvatar from '../../assets/images/user_avatar.png';
 
 	import SearchInput from '$lib/SearchInput.svelte';
+	import RecipeCard from '$lib/RecipeCard.svelte';
+	import { onMount } from 'svelte';
 
-	let currentCategoryIndex = 0;
 	export let data: any;
+	let currentCategoryIndex = 0;
+	let isLoading: boolean = false;
+	let currentArea: string = 'American';
+	let recipeByAreas: [] = [];
 
-	const handleCategoryIndexChange = (idx: number) => {
+	$: currentArea, fetchRecipeByaArea();
+
+	const handleCategoryIndexChange = (area: any, idx: number) => {
 		currentCategoryIndex = idx;
+		currentArea = area?.strArea;
 	};
+
+	const fetchRecipeByaArea = async () => {
+		try {
+			isLoading = true;
+			const res = fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${currentArea}`).then(
+				(res) => res.json()
+			);
+			const result = await res;
+			isLoading = false;
+			recipeByAreas = result?.meals;
+		} catch (ex) {
+			isLoading = false;
+			console.log(ex);
+		}
+	};
+
+	onMount(() => {
+		fetchRecipeByaArea();
+	});
 </script>
 
 <div class="container">
@@ -30,13 +57,25 @@
 		{#each data?.areas as area, index}
 			<li
 				class={currentCategoryIndex === index ? 'active' : ''}
-				on:click={() => handleCategoryIndexChange(index)}
+				on:click={() => handleCategoryIndexChange(area, index)}
 				on:keydown
 			>
 				{area?.strArea}
 			</li>
 		{/each}
 	</ul>
+
+	<div class="recipe__card__wrapper">
+		{#if isLoading}
+			<div class="loading__wrapper">loading...</div>
+		{:else if recipeByAreas?.length < 0}
+			<div class="no__data__wrapper">No Data Found...</div>
+		{:else}
+			{#each recipeByAreas as recipeByArea}
+				<RecipeCard recipe={recipeByArea} />
+			{/each}
+		{/if}
+	</div>
 </div>
 
 <style>
@@ -84,7 +123,8 @@
 	}
 
 	/* Hide scrollbar for Chrome, Safari and Opera */
-	.catergory__navs::-webkit-scrollbar {
+	.catergory__navs::-webkit-scrollbar,
+	.recipe__card__wrapper::-webkit-scrollbar {
 		display: none;
 	}
 
@@ -97,5 +137,24 @@
 	.catergory__navs li.active {
 		background: var(--color-green);
 		color: var(--color-white);
+	}
+
+	.recipe__card__wrapper {
+		margin-top: 25px;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		display: flex;
+		gap: 10px;
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+
+	.loading__wrapper,
+	.no__data__wrapper {
+		width: 100%;
+		height: inherit;
+		margin-top: 50px;
+		text-align: center;
 	}
 </style>
