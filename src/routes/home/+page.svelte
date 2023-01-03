@@ -4,6 +4,8 @@
 
 	import SearchInput from '$lib/SearchInput.svelte';
 	import RecipeCard from '$lib/RecipeCard.svelte';
+	import NewRecipeCard from '$lib/NewRecipeCard.svelte';
+	import StickyFooter from '$lib/StickyFooter.svelte';
 	import { onMount } from 'svelte';
 
 	export let data: any;
@@ -76,13 +78,25 @@
 			{/each}
 		{/if}
 	</div>
+
+	<div class="newrecipe__card__container">
+		<h1>New Recipe</h1>
+		<div class="newrecipe__card__wrapper">
+			<div class="newrecipe">
+				<NewRecipeCard />
+				<NewRecipeCard />
+			</div>
+		</div>
+	</div>
+
+	<StickyFooter />
 </div>
 
 <style>
 	.container {
 		width: 100%;
 		padding-inline: 30px;
-		padding-block: 50px 60px;
+		padding-block: 50px 120px;
 	}
 	.header {
 		display: flex;
@@ -124,7 +138,8 @@
 
 	/* Hide scrollbar for Chrome, Safari and Opera */
 	.catergory__navs::-webkit-scrollbar,
-	.recipe__card__wrapper::-webkit-scrollbar {
+	.recipe__card__wrapper::-webkit-scrollbar,
+	.newrecipe__card__wrapper::-webkit-scrollbar {
 		display: none;
 	}
 
@@ -139,7 +154,8 @@
 		color: var(--color-white);
 	}
 
-	.recipe__card__wrapper {
+	.recipe__card__wrapper,
+	.newrecipe__card__wrapper {
 		margin-top: 25px;
 		width: 100%;
 		height: 100%;
@@ -156,5 +172,26 @@
 		height: inherit;
 		margin-top: 50px;
 		text-align: center;
+	}
+
+	.newrecipe__card__container {
+		margin-top: 20px;
+	}
+
+	.newrecipe__card__container > h1 {
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 24px;
+	}
+
+	.newrecipe__card__wrapper {
+		margin-top: 5px;
+		height: 140px;
+		overflow: auto;
+	}
+
+	.newrecipe {
+		margin-top: 35px;
+		display: flex;
 	}
 </style>
