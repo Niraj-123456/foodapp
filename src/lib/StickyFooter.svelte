@@ -30,6 +30,7 @@
 		margin-top: 20px;
 		background: var(--color-white);
 		box-shadow: 0px 0px 8px rgba(108, 108, 108, 0.08);
+		mask-composite: subtract;
 	}
 
 	.footer__navs {
@@ -43,9 +44,13 @@
 	}
 
 	.add {
-		position: absolute;
+		margin-top: -100px;
+		/* position: absolute;
 		top: 0;
 		left: 50%;
-		transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%); */
+		box-shadow: -0px 5px 8px 2px rgba(108, 108, 108, 0.08);
+		border: solid 5px #ffffff;
+		border-radius: 50%;
 	}
 </style>

@@ -6,6 +6,7 @@
 	import RecipeCard from '$lib/RecipeCard.svelte';
 	import NewRecipeCard from '$lib/NewRecipeCard.svelte';
 	import StickyFooter from '$lib/StickyFooter.svelte';
+	import LoadingUi from '$lib/LoadingUi.svelte';
 	import { onMount } from 'svelte';
 
 	export let data: any;
@@ -69,7 +70,7 @@
 
 	<div class="recipe__card__wrapper">
 		{#if isLoading}
-			<div class="loading__wrapper">loading...</div>
+			<LoadingUi />
 		{:else if recipeByAreas?.length < 0}
 			<div class="no__data__wrapper">No Data Found...</div>
 		{:else}
@@ -96,7 +97,7 @@
 	.container {
 		width: 100%;
 		padding-inline: 30px;
-		padding-block: 50px 120px;
+		padding-block: 50px 130px;
 	}
 	.header {
 		display: flex;
@@ -166,12 +167,12 @@
 		scrollbar-width: none; /* Firefox */
 	}
 
-	.loading__wrapper,
 	.no__data__wrapper {
 		width: 100%;
-		height: inherit;
-		margin-top: 50px;
-		text-align: center;
+		height: 217px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.newrecipe__card__container {

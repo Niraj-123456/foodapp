@@ -2,16 +2,6 @@
 	import '../app.css';
 </script>
 
-<div class="container">
+<div class="w-full h-[100%] flex justify-center items-center">
 	<slot />
 </div>
-
-<style>
-	.container {
-		width: 100%;
-		min-height: 100vh;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-</style>
