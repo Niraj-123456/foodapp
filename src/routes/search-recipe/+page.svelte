@@ -41,7 +41,7 @@
 <div class="container">
 	<TopNavigation {showLeftIcon} {heading} {showRightIcon} />
 
-	<SearchInput {debounce} />
+	<SearchInput {debounce} onFocus={() => {}} />
 
 	<div class="search__result__wrapper">
 		<h3>Recent Search</h3>

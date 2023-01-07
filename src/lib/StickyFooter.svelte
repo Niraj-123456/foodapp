@@ -1,13 +1,32 @@
-<script>
+<script lang="ts">
+	import { goto } from '$app/navigation';
 	import { Icon, Home, Bookmark, Bell, User, Plus } from 'svelte-hero-icons';
+
+	let currentIndex = 0;
+
+	const handleNavigate = (idx: number, link: string) => {
+		console.log(idx, link);
+		currentIndex = idx;
+		goto(link);
+	};
 </script>
 
 <div class="container">
 	<ul class="footer__navs">
-		<li class="active">
-			<Icon src={Home} size="30px" class="text-[#129575]" />
+		<li
+			class={currentIndex === 0 ? 'active' : ''}
+			on:click={() => handleNavigate(0, '/home')}
+			on:keydown
+		>
+			<Icon src={Home} size="30px" />
 		</li>
-		<li><Icon src={Bookmark} size="30px" class="text-[#d9d9d9]" /></li>
+		<li
+			class={currentIndex === 1 ? 'active' : ''}
+			on:click={() => handleNavigate(1, '/saved-recipes')}
+			on:keydown
+		>
+			<Icon src={Bookmark} size="30px" />
+		</li>
 		<li class="add">
 			<Icon
 				src={Plus}
@@ -16,8 +35,20 @@
 				class="bg-[#129575] text-white w-[48px] h-[48px] p-2 rounded-full"
 			/>
 		</li>
-		<li><Icon src={Bell} size="30px" class="text-[#d9d9d9]" /></li>
-		<li><Icon src={User} size="30px" class="text-[#d9d9d9]" /></li>
+		<li
+			class={currentIndex === 2 ? 'active' : ''}
+			on:click={() => handleNavigate(2, '/notifications')}
+			on:keydown
+		>
+			<Icon src={Bell} size="30px" />
+		</li>
+		<li
+			class={currentIndex === 3 ? 'active' : ''}
+			on:click={() => handleNavigate(3, '/profile')}
+			on:keydown
+		>
+			<Icon src={User} size="30px" />
+		</li>
 	</ul>
 </div>
 
@@ -37,6 +68,10 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+	}
+
+	.footer__navs li {
+		color: var(--color-gray);
 	}
 
 	.footer__navs li.active {

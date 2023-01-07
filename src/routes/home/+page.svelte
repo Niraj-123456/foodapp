@@ -8,6 +8,7 @@
 	import StickyFooter from '$lib/StickyFooter.svelte';
 	import LoadingUi from '$lib/LoadingUi.svelte';
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	export let data: any;
 	let currentCategoryIndex = 0;
@@ -48,13 +49,13 @@
 			<h1>Hello Jega</h1>
 			<p>What are you cooking today?</p>
 		</div>
-		<div class="user__img">
+		<div class="user__img" on:click={() => goto('/profile')} on:keydown>
 			<img src={UserAvatar} alt="user-avatar" />
 		</div>
 	</div>
 
 	<!-- search input -->
-	<SearchInput debounce={() => {}} />
+	<SearchInput debounce={() => {}} onFocus={() => goto('/search-recipe')} />
 
 	<ul class="catergory__navs">
 		{#each data?.areas as area, index}

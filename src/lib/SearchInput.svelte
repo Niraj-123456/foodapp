@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Icon, Search, Adjustments } from 'svelte-hero-icons';
 	export let debounce: (e: any) => void;
+	export let onFocus: () => void;
 </script>
 
 <div class="flex justify-between mt-[20px]">
@@ -9,7 +10,8 @@
 			type="text"
 			placeholder="Search Recipe"
 			on:input={debounce}
-			class="w-full border-[1.3px] border-[#D9D9D9] rounded-[10px] pl-[38px] pr-[50px] h-[40px] placeholder:text-[#D9D9D9] text-[12px]"
+			on:focus={onFocus}
+			class="w-full border-[1.3px] border-[#D9D9D9] rounded-[10px] pl-[38px] pr-[50px] h-[40px] placeholder:text-[#D9D9D9] text-[12px] hover:border-[#129575] focus:outline-none"
 		/>
 		<Icon
 			src={Search}
