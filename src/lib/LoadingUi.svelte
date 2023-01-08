@@ -1,6 +1,6 @@
 <div class="loading__wrapper">
 	<svg class="animate-spin w-[35px] h-[35px]" viewBox="0 0 50 50">
-		<circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="7" />
+		<circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5" />
 	</svg>
 </div>
 
@@ -15,7 +15,7 @@
 	}
 
 	.path {
-		stroke: var(--color-black-2);
+		stroke: var(--color-green);
 		stroke-linecap: round;
 		animation: dash 1.5s ease-in-out infinite;
 	}
