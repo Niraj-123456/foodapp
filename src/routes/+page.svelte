@@ -3,6 +3,7 @@
 	import { ArrowRight } from 'svelte-hero-icons';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { fly, slide } from 'svelte/transition';
 
 	import Button from '$lib/Button.svelte';
 	import { miniAppInitializer } from '../miniAppInitializer';
@@ -35,7 +36,7 @@
 	});
 </script>
 
-<div class="container">
+<main class="container">
 	<div class="content">
 		<div class="cta__heading">
 			<img src={ChefHatIcon} alt="chef-cap" />
@@ -54,7 +55,7 @@
 			/>
 		</div>
 	</div>
-</div>
+</main>
 
 <style>
 	.container {

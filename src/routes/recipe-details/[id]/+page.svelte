@@ -4,6 +4,7 @@
 	import TopNavigation from '$lib/TopNavigation.svelte';
 	import IngredientAndProcedure from '$lib/IngredientAndProcedure.svelte';
 	import Owner from '../../../assets/images/chef.png';
+	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
 
 	import {
 		Icon,
@@ -14,7 +15,8 @@
 		Star,
 		LocationMarker,
 		Heart,
-		Play
+		Play,
+		Share
 	} from 'svelte-hero-icons';
 
 	export let data: any;
@@ -26,6 +28,7 @@
 	let measurements: [] = [];
 	let procedures: [] = [];
 	let isFollowing: boolean = false;
+	let openRecipeShareDialog: boolean = false;
 
 	//get all recipe ingredients and procedures
 	Object.entries(data?.recipe).forEach(([key, value]: any) => {
@@ -40,10 +43,18 @@
 			procedures = procedureSteps.filter((procedure: string) => procedure !== '');
 		}
 	});
+
+	const handleOpenRecipeShareDialog = () => {
+		openRecipeShareDialog = true;
+	};
+
+	const handleCloseRecipeShareDialog = () => {
+		openRecipeShareDialog = false;
+	};
 </script>
 
 <div class="container">
-	<TopNavigation {showLeftIcon} {heading} {showRightIcon} />
+	<TopNavigation {showLeftIcon} {heading} {showRightIcon} {handleOpenRecipeShareDialog} />
 
 	<div class="recipe__wrapper">
 		<img src={data?.recipe?.strMealThumb} alt={data?.recipe?.strMeal} />
@@ -73,7 +84,7 @@
 		<div class="recipe__owner">
 			<img src={Owner} alt="owner" />
 			<div class="name__location">
-				<p>Laura Wilson</p>
+				<p><a href="/profile">Laura Wilson</a></p>
 				<span>
 					<Icon src={LocationMarker} solid size="14px" class="text-[#71B1A1]" /> Lagos, Nigeria
 				</span>
@@ -93,6 +104,8 @@
 	</div>
 
 	<IngredientAndProcedure {ingredients} {measurements} {procedures} />
+
+	<ShareRecipeModal {openRecipeShareDialog} {handleCloseRecipeShareDialog} />
 </div>
 
 <style>

@@ -1,14 +1,25 @@
-<script>
+<script lang="ts">
 	import { Icon, DocumentText } from 'svelte-hero-icons';
 	import TopNavigation from '$lib/TopNavigation.svelte';
 	import StickyFooter from '$lib/StickyFooter.svelte';
+	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
 
 	let options = ['All', 'Read', 'Unread'];
-	let currentOption = 0;
+	let currentOption: number = 0;
+	let openRecipeShareDialog: boolean = false;
+
+	const handleOpenRecipeShareDialog = () => {
+		openRecipeShareDialog = true;
+	};
 </script>
 
 <div class="container">
-	<TopNavigation showLeftIcon={true} heading="Notifications" showRightIcon={false} />
+	<TopNavigation
+		showLeftIcon={true}
+		heading="Notifications"
+		showRightIcon={false}
+		{handleOpenRecipeShareDialog}
+	/>
 
 	<div class="notification__navs">
 		<ul>
@@ -337,7 +348,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
-		animation: slideFromLeft 1s linear;
+		animation: slideFromLeft 750ms linear;
 	}
 
 	.notification__card__wrapper > h1 {

@@ -27,7 +27,7 @@
 			>
 				<Icon
 					src={option?.icon}
-					size="20px"
+					size="25px"
 					class={option?.id === 3
 						? 'bg-[#129575] text-white w-[48px] h-[48px] p-3 rounded-full'
 						: ''}

@@ -1,20 +1,32 @@
 <script lang="ts">
 	import TopNavigation from '$lib/TopNavigation.svelte';
+	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
 	import ChefProfileImg from '../../assets/images/chef-profile.png';
 	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
 	import RecipeVideoCard from '$lib/RecipeVideoCard.svelte';
+	import StickyFooter from '$lib/StickyFooter.svelte';
 
-	let showLeftIcon: boolean = true,
-		heading: string = 'Profile',
-		showRightIcon: boolean = true;
-
+	let openRecipeShareDialog: boolean = false;
 	const navOptions = ['Recipe', 'Videos', 'Tag'];
+
+	const handleOpenRecipeShareDialog = () => {
+		openRecipeShareDialog = true;
+	};
+
+	const handleCloseRecipeShareDialog = () => {
+		openRecipeShareDialog = false;
+	};
 
 	let currentOption = 0;
 </script>
 
 <div class="container">
-	<TopNavigation {showLeftIcon} {heading} {showRightIcon} />
+	<TopNavigation
+		showLeftIcon={true}
+		heading="Profile"
+		showRightIcon={true}
+		{handleOpenRecipeShareDialog}
+	/>
 	<div class="profile__wrapper">
 		<div class="profile">
 			<img src={ChefProfileImg} alt="profile" class="profile__img" />
@@ -64,12 +76,15 @@
 			{/if}
 		</div>
 	</div>
+	<ShareRecipeModal {openRecipeShareDialog} {handleCloseRecipeShareDialog} />
+	<StickyFooter />
 </div>
 
 <style>
 	.container {
 		width: 100%;
-		padding: 50px 30px;
+		padding-inline: 30px;
+		padding-block: 50px 120px;
 	}
 
 	.profile__wrapper {

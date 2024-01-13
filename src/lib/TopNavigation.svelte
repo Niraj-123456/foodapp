@@ -8,11 +8,12 @@
 		ChatAlt,
 		Bookmark
 	} from 'svelte-hero-icons';
-	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
-	export let showLeftIcon: boolean, heading: string, showRightIcon: boolean;
+	import { fly, fade } from 'svelte/transition';
+	export let showLeftIcon: boolean,
+		heading: string,
+		showRightIcon: boolean,
+		handleOpenRecipeShareDialog: () => void;
 	let openDialog: boolean = false;
-	let dialogRef: any;
 
 	// onMount(() => {
 	// 	console.log(dialogRef);
@@ -44,15 +45,23 @@
 		<div />
 	{/if}
 </div>
-<dialog open={openDialog} class="option__modal">
-	<ul class="options" bind:this={dialogRef}>
-		<li on:click={() => console.log('clicked')} on:keydown>
-			<span><Icon src={Share} size="20px" /></span>Share
-		</li>
-		<li><span><Icon src={Star} solid size="20px" /></span>Rate Recipe</li>
-		<li><span><Icon src={ChatAlt} size="20px" /></span>Review</li>
-		<li><span><Icon src={Bookmark} solid size="20px" /></span>Unsave</li>
-	</ul>
+<dialog open={openDialog} on:close={() => (openDialog = false)} class="option__modal">
+	<div transition:fly={{ y: 200, duration: 2000, delay: 300 }} class="options">
+		<ul>
+			<li
+				on:click={() => {
+					handleOpenRecipeShareDialog();
+					openDialog = false;
+				}}
+				on:keydown
+			>
+				<span><Icon src={Share} size="20px" /></span>Share
+			</li>
+			<li><span><Icon src={Star} solid size="20px" /></span>Rate Recipe</li>
+			<li><span><Icon src={ChatAlt} size="20px" /></span>Review</li>
+			<li><span><Icon src={Bookmark} solid size="20px" /></span>Unsave</li>
+		</ul>
+	</div>
 </dialog>
 
 <style>
@@ -72,10 +81,10 @@
 		width: 100%;
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0);
-		z-index: 9999 !important;
 	}
 
 	.options {
+		z-index: 9999 !important;
 		position: absolute;
 		top: 0%;
 		right: 8%;
@@ -86,7 +95,7 @@
 	}
 
 	.options {
-		width: 180px;
+		width: 190px;
 	}
 
 	.options li {

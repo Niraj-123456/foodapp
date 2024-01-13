@@ -12,6 +12,7 @@
 	let showLeftIcon: boolean = true;
 	let heading: string = 'Search recipes';
 	let showRightIcon: boolean = false;
+	let openRecipeShareDialog: boolean = false;
 
 	$: searchQuery, searchFoodByName();
 
@@ -20,6 +21,10 @@
 		timer = setTimeout(() => {
 			searchQuery = e.target.value;
 		}, 750);
+	};
+
+	const handleOpenRecipeShareDialog = () => {
+		openRecipeShareDialog = true;
 	};
 
 	const searchFoodByName = async () => {
@@ -39,7 +44,7 @@
 </script>
 
 <div class="container">
-	<TopNavigation {showLeftIcon} {heading} {showRightIcon} />
+	<TopNavigation {showLeftIcon} {heading} {showRightIcon} {handleOpenRecipeShareDialog} />
 
 	<SearchInput {debounce} onFocus={() => {}} />
 
