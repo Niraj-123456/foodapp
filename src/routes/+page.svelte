@@ -36,7 +36,7 @@
 	});
 </script>
 
-<main class="container">
+<main class="main">
 	<div class="content">
 		<div class="cta__heading">
 			<img src={ChefHatIcon} alt="chef-cap" />
@@ -58,11 +58,12 @@
 </main>
 
 <style>
-	.container {
+	.main {
 		width: 100%;
 		height: 100vh;
-		background: linear-gradient(179.98deg, rgba(0, 0, 0, 0.4) 0.01%, #000000 99.99%),
+		background: linear-gradient(179.98deg, rgba(0, 0, 0, 0.4) 90%, #000000 99.99%),
 			url('../assets/images/splash.png');
+		background-size: contain;
 		padding-block: 104px 95px;
 		padding-inline: 50px;
 	}

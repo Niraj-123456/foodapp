@@ -46,7 +46,7 @@
 	{/if}
 </div>
 <dialog open={openDialog} on:close={() => (openDialog = false)} class="option__modal">
-	<div transition:fly={{ y: 200, duration: 2000, delay: 300 }} class="options">
+	<div transition:fly|global={{ y: 200, duration: 2000, delay: 300 }} class="options">
 		<ul>
 			<li
 				on:click={() => {

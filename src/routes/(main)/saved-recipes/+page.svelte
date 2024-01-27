@@ -6,7 +6,7 @@
 	let handleOpenRecipeShareDialog: () => void;
 </script>
 
-<div class="container">
+<div class="main">
 	<TopNavigation
 		showLeftIcon={true}
 		heading="Saved Recipes"
@@ -27,11 +27,10 @@
 		<RecipieCardWide />
 		<RecipieCardWide />
 	</div>
-	<StickyFooter />
 </div>
 
 <style>
-	.container {
+	.main {
 		width: 100%;
 		padding-inline: 30px;
 		padding-block: 50px 130px;

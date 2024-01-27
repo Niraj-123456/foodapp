@@ -1,34 +1,34 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { Icon, Home, Bookmark, Bell, User, Plus } from 'svelte-hero-icons';
 
-	let currentIndex = 1;
 	let options = [
-		{ id: 1, link: '/home', icon: Home },
-		{ id: 2, link: '/saved-recipes', icon: Bookmark },
-		{ id: 3, link: '/add-recipes', icon: Plus },
-		{ id: 4, link: '/notifications', icon: Bell },
-		{ id: 5, link: '/profile', icon: User }
+		{ link: '/home', icon: Home },
+		{ link: '/saved-recipes', icon: Bookmark },
+		{ link: '/add-recipes', icon: Plus },
+		{ link: '/notifications', icon: Bell },
+		{ link: '/profile', icon: User }
 	];
 
-	const handleNavigate = (idx: number, link: string) => {
-		currentIndex = idx;
+	const handleNavigate = (link: string) => {
 		goto(link, { replaceState: false });
 	};
+	console.log('page', $page.url.pathname);
 </script>
 
-<div class="container">
+<div class="main">
 	<ul class="footer__navs">
 		{#each options as option}
 			<li
-				class={currentIndex === option?.id ? 'active' : ''}
-				on:click={() => handleNavigate(option?.id, option?.link)}
+				on:click={() => handleNavigate(option?.link)}
+				class={option?.link === $page.url.pathname ? 'active' : ''}
 				on:keydown
 			>
 				<Icon
 					src={option?.icon}
 					size="25px"
-					class={option?.id === 3
+					class={option?.link === '/add-recipes'
 						? 'bg-[#129575] text-white w-[48px] h-[48px] p-3 rounded-full'
 						: ''}
 				/>
@@ -38,15 +38,14 @@
 </div>
 
 <style>
-	.container {
-		position: fixed;
+	.main {
+		width: 100%;
+		position: sticky;
 		bottom: 0;
 		left: 0;
-		padding: 30px 50px;
+		padding: 20px 20px;
 		margin-top: 20px;
-		background: var(--color-white);
-		box-shadow: 0px 0px 8px rgba(108, 108, 108, 0.08);
-		mask-composite: subtract;
+		background: #f5f5f5;
 	}
 
 	.footer__navs {
@@ -56,18 +55,36 @@
 	}
 
 	.footer__navs li {
-		color: var(--color-gray);
+		color: var(--color-black-2);
 	}
 
 	.footer__navs li:nth-child(3) {
-		margin-top: -85px;
-		/* position: absolute;
-		top: 0;
-		left: 50%;
-		transform: translate(-50%, -50%); */
-		box-shadow: -0px 5px 8px 2px rgba(108, 108, 108, 0.08);
-		border: solid 5px #ffffff;
+		margin-top: -65px;
 		border-radius: 50%;
+		position: relative;
+		border: solid 5px #fff;
+	}
+
+	.footer__navs li:nth-child(3)::after,
+	.footer__navs li:nth-child(3)::before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		width: 20px;
+		height: 20px;
+		background: transparent;
+	}
+
+	.footer__navs li:nth-child(3)::before {
+		left: -40%;
+		border-top-right-radius: 20px;
+		box-shadow: 0 -10px 0 0 #fff;
+	}
+
+	.footer__navs li:nth-child(3)::after {
+		right: -42%;
+		border-top-left-radius: 20px;
+		box-shadow: 0px -10px 0 0 #fff;
 	}
 
 	.footer__navs li.active {

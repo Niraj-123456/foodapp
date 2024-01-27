@@ -1,6 +1,6 @@
 <script lang="ts">
 	/** @type {import('./$types').PageData} */
-	import UserAvatar from '../../assets/images/user_avatar.png';
+	import UserAvatar from '../../../assets/images/user_avatar.png';
 
 	import SearchInput from '$lib/SearchInput.svelte';
 	import RecipeCard from '$lib/RecipeCard.svelte';
@@ -43,7 +43,7 @@
 	});
 </script>
 
-<div class="container">
+<div class="main">
 	<div class="header">
 		<div class="user__name">
 			<h1>Hello Jega</h1>
@@ -90,12 +90,10 @@
 			</div>
 		</div>
 	</div>
-
-	<StickyFooter />
 </div>
 
 <style>
-	.container {
+	.main {
 		width: 100%;
 		padding-inline: 30px;
 		padding-block: 50px 130px;

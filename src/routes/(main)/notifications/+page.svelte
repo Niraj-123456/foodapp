@@ -297,8 +297,6 @@
 			</div>
 		</div>
 	{/if}
-
-	<StickyFooter />
 </div>
 
 <style>

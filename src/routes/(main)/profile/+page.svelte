@@ -1,7 +1,7 @@
 <script lang="ts">
 	import TopNavigation from '$lib/TopNavigation.svelte';
 	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
-	import ChefProfileImg from '../../assets/images/chef-profile.png';
+	import ChefProfileImg from '../../../assets/images/chef-profile.png';
 	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
 	import RecipeVideoCard from '$lib/RecipeVideoCard.svelte';
 	import StickyFooter from '$lib/StickyFooter.svelte';
@@ -77,7 +77,6 @@
 		</div>
 	</div>
 	<ShareRecipeModal {openRecipeShareDialog} {handleCloseRecipeShareDialog} />
-	<StickyFooter />
 </div>
 
 <style>

@@ -14,7 +14,7 @@
 	};
 </script>
 
-<div class="container">
+<div class="main">
 	<div class="greet">
 		<h1>Hello,</h1>
 		<p>Welcome Back!</p>
@@ -51,7 +51,7 @@
 </div>
 
 <style>
-	.container {
+	.main {
 		width: 100%;
 		min-height: 100vh;
 		padding-inline: 30px;
