@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon, DocumentText } from 'svelte-hero-icons';
+	import { FileText } from 'lucide-svelte';
 	import TopNavigation from '$lib/TopNavigation.svelte';
 	import StickyFooter from '$lib/StickyFooter.svelte';
 	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
@@ -13,12 +13,12 @@
 	};
 </script>
 
-<div class="container">
+<div class="main">
 	<TopNavigation
 		showLeftIcon={true}
 		heading="Notifications"
 		showRightIcon={false}
-		{handleOpenRecipeShareDialog}
+		open={openRecipeShareDialog}
 	/>
 
 	<div class="notification__navs">
@@ -46,11 +46,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -59,11 +55,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -72,11 +64,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 			</div>
 			<div class="notification__card__wrapper">
@@ -88,11 +76,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -101,11 +85,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -114,11 +94,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 			</div>
 		</div>
@@ -133,11 +109,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -146,11 +118,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -159,11 +127,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 			</div>
 			<div class="notification__card__wrapper">
@@ -175,11 +139,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -188,11 +148,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -201,11 +157,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 			</div>
 		</div>
@@ -220,11 +172,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -233,11 +181,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -246,11 +190,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 			</div>
 			<div class="notification__card__wrapper">
@@ -262,11 +202,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -275,11 +211,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 				<div class="notification__card">
 					<div class="card__content">
@@ -288,11 +220,7 @@
 						<span>10 mins ago</span>
 					</div>
 
-					<Icon
-						src={DocumentText}
-						size="25px"
-						class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]"
-					/>
+					<FileText class="bg-[#FFE1B3] text-[#FF9C00] rounded-[10px] h-[28px] w-[58px] p-[3px]" />
 				</div>
 			</div>
 		</div>
@@ -308,7 +236,7 @@
 			transform: translateX(0%);
 		}
 	}
-	.container {
+	.main {
 		width: 100%;
 		padding-inline: 30px;
 		padding-block: 50px 120px;

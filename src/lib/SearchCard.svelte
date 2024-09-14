@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { Icon, Star } from 'svelte-hero-icons';
+	import { Star } from 'lucide-svelte';
 
 	export let food: any;
 </script>
 
-<div class="container">
+<div class="main">
 	<img src={food?.strMealThumb} alt={food?.strMeal} />
 	<div class="content__wrapper">
 		<div class="rating">
 			<span
-				><Icon src={Star} solid size="9px" class="text-[#FFAD30]" />
+				><Star class="text-[#FFAD30] w-4 h-4" />
 				<p>4.0</p></span
 			>
 		</div>
@@ -22,7 +22,7 @@
 </div>
 
 <style>
-	.container {
+	.main {
 		width: 150px;
 		height: 150px;
 		border-radius: 10px;

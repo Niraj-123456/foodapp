@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon, Bookmark } from 'svelte-hero-icons';
+	import { Bookmark } from 'lucide-svelte';
 
 	export let recipe: any;
 </script>
@@ -13,13 +13,7 @@
 				Time
 				<span>15 Mins</span>
 			</div>
-			<span
-				><Icon
-					src={Bookmark}
-					size="25px"
-					class="bg-white rounded-full p-1 text-[#130F26] opacity-70"
-				/></span
-			>
+			<span><Bookmark class="bg-white rounded-full p-1 text-[#130F26] opacity-70 w-6 h-6" /></span>
 		</div>
 	</div>
 </div>
@@ -49,13 +43,10 @@
 		display: block;
 		font-size: 14px;
 		font-weight: 600;
-		text-align: center;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;
 		line-height: 21px;
-		margin: auto;
-		padding-inline: 10px;
 	}
 
 	.time__bookmark {

@@ -3,7 +3,7 @@
 	import Button from '$lib/Button.svelte';
 	import OtherSignInOption from '$lib/OtherSignInOption.svelte';
 
-	import { ArrowRight } from 'svelte-hero-icons';
+	import { ArrowRight } from 'lucide-svelte';
 
 	let name: string;
 	let email: string;
@@ -126,6 +126,7 @@
 		-o-appearance: none;
 		outline: none;
 		content: none;
+		border: 0;
 	}
 
 	.terms > input::before {

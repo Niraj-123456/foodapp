@@ -4,28 +4,18 @@
 	import ChefProfileImg from '../../../assets/images/chef-profile.png';
 	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
 	import RecipeVideoCard from '$lib/RecipeVideoCard.svelte';
-	import StickyFooter from '$lib/StickyFooter.svelte';
 
-	let openRecipeShareDialog: boolean = false;
 	const navOptions = ['Recipe', 'Videos', 'Tag'];
-
-	const handleOpenRecipeShareDialog = () => {
-		openRecipeShareDialog = true;
-	};
-
-	const handleCloseRecipeShareDialog = () => {
-		openRecipeShareDialog = false;
-	};
-
+	let openRecipeShareDialog: boolean = false;
 	let currentOption = 0;
 </script>
 
-<div class="container">
+<div class="main">
 	<TopNavigation
 		showLeftIcon={true}
 		heading="Profile"
 		showRightIcon={true}
-		{handleOpenRecipeShareDialog}
+		bind:open={openRecipeShareDialog}
 	/>
 	<div class="profile__wrapper">
 		<div class="profile">
@@ -76,11 +66,11 @@
 			{/if}
 		</div>
 	</div>
-	<ShareRecipeModal {openRecipeShareDialog} {handleCloseRecipeShareDialog} />
 </div>
+<ShareRecipeModal bind:open={openRecipeShareDialog} />
 
 <style>
-	.container {
+	.main {
 		width: 100%;
 		padding-inline: 30px;
 		padding-block: 50px 120px;

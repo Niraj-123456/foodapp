@@ -1,5 +1,5 @@
 <script>
-	import { Icon, Star, Clock, Bookmark, Play } from 'svelte-hero-icons';
+	import { Star, Clock, Bookmark, Play } from 'lucide-svelte';
 	import RecipeImg2 from '../assets/images/recipe_2.png';
 </script>
 
@@ -7,14 +7,14 @@
 	<img src={RecipeImg2} alt="recipe" />
 	<div class="card__content">
 		<div class="rating">
-			<Icon src={Star} solid size="9px" class="text-[#FFAD30]" />
+			<Star class="text-[#FFAD30] w-4 h-4" />
 			<p>4.0</p>
 		</div>
-		<Icon src={Play} size="55px" class="text-white opacity-[0.5] flex w-full" />
+		<Play class="text-white opacity-[0.5] flex w-14 h-14" />
 		<div class="preparation__time">
-			<Icon src={Clock} size="18px" />
+			<Clock />
 			<span>20 min</span>
-			<Icon src={Bookmark} size="20px" class="text-[#130F26] rounded-full p-[3px] bg-white" />
+			<Bookmark class="text-[#130F26] rounded-full p-[3px] bg-white" />
 		</div>
 	</div>
 </div>

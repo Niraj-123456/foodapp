@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ChefHatIcon from '../assets/images/chef_hat.png';
-	import { ArrowRight } from 'svelte-hero-icons';
+	import { ArrowRight } from 'lucide-svelte';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { fly, slide } from 'svelte/transition';

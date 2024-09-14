@@ -5,10 +5,10 @@
 	import SearchInput from '$lib/SearchInput.svelte';
 	import RecipeCard from '$lib/RecipeCard.svelte';
 	import NewRecipeCard from '$lib/NewRecipeCard.svelte';
-	import StickyFooter from '$lib/StickyFooter.svelte';
 	import LoadingUi from '$lib/LoadingUi.svelte';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import CardLoadingUi from '$lib/common/CardLoadingUi.svelte';
 
 	export let data: any;
 	let currentCategoryIndex = 0;
@@ -49,29 +49,32 @@
 			<h1>Hello Jega</h1>
 			<p>What are you cooking today?</p>
 		</div>
-		<div class="user__img" on:click={() => goto('/profile')} on:keydown>
+		<a class="user__img" href="/profile">
 			<img src={UserAvatar} alt="user-avatar" />
-		</div>
+		</a>
 	</div>
 
 	<!-- search input -->
 	<SearchInput debounce={() => {}} onFocus={() => goto('/search-recipe')} />
 
-	<ul class="catergory__navs">
+	<div class="catergory__navs">
 		{#each data?.areas as area, index}
-			<li
-				class={currentCategoryIndex === index ? 'active' : ''}
+			<button
+				class={currentCategoryIndex === index ? 'category__btn active' : 'category__btn'}
 				on:click={() => handleCategoryIndexChange(area, index)}
-				on:keydown
 			>
 				{area?.strArea}
-			</li>
+			</button>
 		{/each}
-	</ul>
+	</div>
 
 	<div class="recipe__card__wrapper">
 		{#if isLoading}
-			<LoadingUi />
+			<div class="w-full flex gap-4">
+				{#each [0, 1, 2] as idx}
+					<CardLoadingUi />
+				{/each}
+			</div>
 		{:else if recipeByAreas?.length < 0}
 			<div class="no__data__wrapper">No Data Found...</div>
 		{:else}
@@ -143,13 +146,13 @@
 		display: none;
 	}
 
-	.catergory__navs li {
+	.catergory__navs .category__btn {
 		padding: 7px 20px;
 		color: var(--color-green-2);
 		border-radius: 10px;
 	}
 
-	.catergory__navs li.active {
+	.catergory__navs .category__btn.active {
 		background: var(--color-green);
 		color: var(--color-white);
 	}
@@ -175,7 +178,7 @@
 	}
 
 	.newrecipe__card__container {
-		margin-top: 20px;
+		margin-top: 35px;
 	}
 
 	.newrecipe__card__container > h1 {

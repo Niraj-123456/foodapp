@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { Icon, Home, Bookmark, Bell, User, Plus } from 'svelte-hero-icons';
+	import { Home, Bookmark, Bell, User, Plus } from 'lucide-svelte';
 
 	let options = [
 		{ link: '/home', icon: Home },
@@ -14,7 +14,6 @@
 	const handleNavigate = (link: string) => {
 		goto(link, { replaceState: false });
 	};
-	console.log('page', $page.url.pathname);
 </script>
 
 <div class="main">
@@ -25,9 +24,8 @@
 				class={option?.link === $page.url.pathname ? 'active' : ''}
 				on:keydown
 			>
-				<Icon
-					src={option?.icon}
-					size="25px"
+				<svelte:component
+					this={option.icon}
 					class={option?.link === '/add-recipes'
 						? 'bg-[#129575] text-white w-[48px] h-[48px] p-3 rounded-full'
 						: ''}
@@ -40,7 +38,7 @@
 <style>
 	.main {
 		width: 100%;
-		position: sticky;
+		position: fixed;
 		bottom: 0;
 		left: 0;
 		padding: 20px 20px;

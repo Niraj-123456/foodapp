@@ -3,8 +3,6 @@
 	import SearchInput from '$lib/SearchInput.svelte';
 	import SearchCard from '$lib/SearchCard.svelte';
 
-	import { Icon, ArrowLeft } from 'svelte-hero-icons';
-
 	let searchQuery: string = '';
 	let foods: any = [];
 	let loading: boolean = false;
@@ -43,8 +41,8 @@
 	};
 </script>
 
-<div class="container">
-	<TopNavigation {showLeftIcon} {heading} {showRightIcon} {handleOpenRecipeShareDialog} />
+<div class="main">
+	<TopNavigation {showLeftIcon} {heading} {showRightIcon} open={openRecipeShareDialog} />
 
 	<SearchInput {debounce} onFocus={() => {}} />
 
@@ -68,7 +66,7 @@
 </div>
 
 <style>
-	.container {
+	.main {
 		width: 100%;
 		min-height: inherit;
 		padding: 50px 30px;

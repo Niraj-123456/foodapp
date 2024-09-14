@@ -1,6 +1,5 @@
 <script>
-	import { Icon, Star, Clock, Bookmark } from 'svelte-hero-icons';
-	import RecipeImg from '../assets/images/recipe_2.png';
+	import { Star, Clock, Bookmark } from 'lucide-svelte';
 	import RecipeImg2 from '../assets/images/recipe_3.jpeg';
 </script>
 
@@ -9,7 +8,7 @@
 	<div class="card__content">
 		<div class="rating">
 			<span
-				><Icon src={Star} solid size="9px" class="text-[#FFAD30]" />
+				><Star class="text-[#FFAD30] w-4 h-4" />
 				<p>4.0</p></span
 			>
 		</div>
@@ -20,9 +19,9 @@
 				<p>By Chef John</p>
 			</div>
 			<div class="preparation__time">
-				<Icon src={Clock} size="18px" />
+				<Clock />
 				<span>20 min</span>
-				<Icon src={Bookmark} size="20px" class="text-[#130F26] rounded-full p-[3px] bg-white" />
+				<Bookmark class="text-[#130F26] rounded-full p-[3px] bg-white" />
 			</div>
 		</div>
 	</div>
@@ -90,6 +89,7 @@
 		line-height: 21px;
 		display: flex;
 		align-items: flex-end;
+		justify-content: space-between;
 	}
 
 	.recipe__name {

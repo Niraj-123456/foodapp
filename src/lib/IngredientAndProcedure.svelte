@@ -17,7 +17,7 @@
 	};
 </script>
 
-<div class="container">
+<div class="main">
 	<ul class="inge__proced__btns">
 		{#each options as option}
 			<li
@@ -78,7 +78,7 @@
 		}
 	}
 
-	.container {
+	.main {
 		margin-top: 10px;
 	}
 

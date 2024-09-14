@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Icon } from 'svelte-hero-icons';
+	import { Icon } from 'lucide-svelte';
 	export let label: string;
 	export let icon: any;
-	export let type: string;
+	export let type: 'button' | 'submit' | 'reset' | null | undefined;
 	export let onClick: () => void;
 </script>
 

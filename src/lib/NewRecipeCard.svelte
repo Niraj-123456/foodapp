@@ -1,5 +1,5 @@
 <script>
-	import { Icon, Star, Clock } from 'svelte-hero-icons';
+	import { Star, Clock } from 'lucide-svelte';
 
 	import RecipeOwner from '../assets/images/recipe_owner.png';
 	import NewRecipeImg from '../assets/images/new_recipe_1.png';
@@ -12,7 +12,7 @@
 		<h1 class="card__heading">Steak with tomato</h1>
 		<span class="star">
 			{#each [1, 2, 3, 4, 5] as star}
-				<Icon src={Star} solid size="20px" class="text-[#FFAD30]" />
+				<Star class="text-[#FFAD30] w-4 h-4" />
 			{/each}
 		</span>
 		<div class="card__footer">
@@ -21,7 +21,7 @@
 				<p>By James Milner</p>
 			</div>
 			<div class="preparation__time">
-				<Icon src={Clock} size="20px" />
+				<Clock class="w-4 h-4" />
 				<span>15 Mins</span>
 			</div>
 		</div>

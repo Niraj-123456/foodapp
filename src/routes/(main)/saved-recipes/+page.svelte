@@ -3,7 +3,7 @@
 	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
 	import StickyFooter from '$lib/StickyFooter.svelte';
 
-	let handleOpenRecipeShareDialog: () => void;
+	let openRecipeShareDialog: boolean = false;
 </script>
 
 <div class="main">
@@ -11,7 +11,7 @@
 		showLeftIcon={true}
 		heading="Saved Recipes"
 		showRightIcon={false}
-		{handleOpenRecipeShareDialog}
+		bind:open={openRecipeShareDialog}
 	/>
 	<div class="saved-recipe-wrapper">
 		<RecipieCardWide />

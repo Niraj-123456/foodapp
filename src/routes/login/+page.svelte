@@ -3,7 +3,7 @@
 	import Button from '$lib/Button.svelte';
 	import OtherSignInOption from '$lib/OtherSignInOption.svelte';
 
-	import { ArrowRight } from 'svelte-hero-icons';
+	import { ArrowRight } from 'lucide-svelte';
 
 	let email: string;
 	let password: string;

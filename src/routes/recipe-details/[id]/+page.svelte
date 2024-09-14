@@ -47,13 +47,9 @@
 	const handleOpenRecipeShareDialog = () => {
 		openRecipeShareDialog = true;
 	};
-
-	const handleCloseRecipeShareDialog = () => {
-		openRecipeShareDialog = false;
-	};
 </script>
 
-<div class="container">
+<div class="main">
 	<TopNavigation {showLeftIcon} {heading} {showRightIcon} {handleOpenRecipeShareDialog} />
 
 	<div class="recipe__wrapper">
@@ -105,11 +101,11 @@
 
 	<IngredientAndProcedure {ingredients} {measurements} {procedures} />
 
-	<ShareRecipeModal {openRecipeShareDialog} {handleCloseRecipeShareDialog} />
+	<ShareRecipeModal {openRecipeShareDialog} />
 </div>
 
 <style>
-	.container {
+	.main {
 		width: 100%;
 		padding-inline: 30px;
 		padding-block: 50px 30px;
