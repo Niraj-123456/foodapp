@@ -1,46 +1,33 @@
 <script lang="ts">
+	import Input from './components/ui/input/input.svelte';
+	import Label from './components/ui/label/label.svelte';
+
 	export let label: string;
 	export let type: string = 'text';
 	export let id: string;
 	export let name: string;
 	export let placeholder: string;
 	export let value: any;
+	export let hasError: boolean;
+	export let errorMsg: string;
 
-	function typeAction(node: any) {
-		node.type = type;
-	}
+	$: hasError;
+	console.log('has error', hasError);
 </script>
 
-<div class="input__group">
-	{#if label} <label for={id}>{label}</label> {/if}
-	<input use:typeAction {name} {id} {placeholder} bind:value />
+<div class="w-full flex flex-col gap-3 mt-8">
+	{#if label} <Label for={id} class="text-gray-700">{label}</Label> {/if}
+	<Input
+		{type}
+		{name}
+		{id}
+		{placeholder}
+		bind:value
+		class={hasError ? 'border-red-600' : 'h-12 placeholder:text-gray-400'}
+	/>
+	{#if hasError && errorMsg}
+		<p class="text-red-600 text-sm">
+			{errorMsg}
+		</p>
+	{/if}
 </div>
-
-<style>
-	.input__group {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		gap: 5px;
-		margin-top: 30px;
-	}
-
-	.input__group > label {
-		font-size: 14px;
-		line-height: 21px;
-		color: #121212;
-	}
-
-	.input__group > input {
-		height: 55px;
-		padding-inline: 20px 50px;
-		border: 1.5px solid #d9d9d9;
-		border-radius: 10px;
-		font-size: 12px;
-		line-height: 16px;
-	}
-
-	.input__group > input::placeholder {
-		color: #d9d9d9;
-	}
-</style>

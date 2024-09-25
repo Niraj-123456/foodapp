@@ -35,7 +35,11 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"image-salon-sdk": "^1.0.27",
-		"lucide-svelte": "^0.424.0"
+		"bits-ui": "^0.21.15",
+		"clsx": "^2.1.1",
+		"image-salon-sdk": "^1.0.28",
+		"lucide-svelte": "^0.424.0",
+		"tailwind-merge": "^2.5.2",
+		"tailwind-variants": "^0.2.1"
 	}
 }

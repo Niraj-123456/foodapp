@@ -1,24 +1,44 @@
 <script lang="ts">
-	import InputField from '$lib/InputField.svelte';
 	import Button from '$lib/Button.svelte';
+	import InputField from '$lib/InputField.svelte';
 	import OtherSignInOption from '$lib/OtherSignInOption.svelte';
-
 	import { ArrowRight } from 'lucide-svelte';
+	import { emailRegex } from '../../utils/helperString';
 
-	let email: string;
-	let password: string;
+	let email: string = '';
+	let password: string = '';
+	let errors = new Map();
+
+	const handleValidateLoginForm = () => {
+		if (!email) {
+			errors.set('email', 'Email is required');
+		} else if (!email?.match(emailRegex)) {
+			errors.set('email', 'Email must be valid');
+		} else {
+			errors.delete('email');
+		}
+
+		if (!password) {
+			errors.set('password', 'Password is required');
+		} else if (password?.length < 6) {
+			errors.set('password', 'Password must be greater than or equal to 6 characters.');
+		} else {
+			errors.delete('password');
+		}
+
+		return errors.size === 0;
+	};
 
 	const handleSubmit = () => {
+		if (!handleValidateLoginForm()) return;
+
 		console.log('email', email);
 		console.log('password', password);
 	};
 </script>
 
 <div class="main">
-	<div class="greet">
-		<h1>Hello,</h1>
-		<p>Welcome Back!</p>
-	</div>
+	<h1 class="text-4xl font-semibold">Login</h1>
 
 	<form class="form" on:submit|preventDefault={handleSubmit}>
 		<InputField
@@ -28,7 +48,10 @@
 			id="email"
 			placeholder="Enter Email"
 			bind:value={email}
+			hasError={errors.has('email')}
+			errorMsg={errors.get('email')}
 		/>
+
 		<InputField
 			label="Password"
 			type="password"
@@ -36,7 +59,10 @@
 			id="password"
 			placeholder="Enter password"
 			bind:value={password}
+			hasError={errors.has('password')}
+			errorMsg={errors.get('password')}
 		/>
+
 		<div class="forgot__pwdlink"><a href={'#'}>Forgot Password?</a></div>
 		<div class="btn__group">
 			<Button type="submit" label={'Login'} icon={ArrowRight} onClick={() => {}} />
@@ -60,19 +86,8 @@
 		justify-content: center;
 	}
 
-	.greet > h1 {
-		font-size: 30px;
-		line-height: 45px;
-	}
-
-	.greet > p {
-		font-size: 20px;
-		line-height: 30px;
-		color: #121212;
-	}
-
 	.form {
-		margin-top: 27px;
+		margin-top: 5px;
 	}
 
 	.forgot__pwdlink {
