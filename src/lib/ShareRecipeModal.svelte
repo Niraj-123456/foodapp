@@ -1,17 +1,25 @@
 <script lang="ts">
-	import { Button } from 'flowbite-svelte';
-	import { Modal, Input } from 'flowbite-svelte';
+	import Button from './components/ui/button/button.svelte';
+	import * as Dialog from '$lib/components/ui/dialog/index';
+	import Input from './components/ui/input/input.svelte';
 	export let open: boolean;
 </script>
 
-<Modal title="Recipe Link" bind:open autoclose outsideclose>
-	<p class="text-sm">Copy recipe link and share your recipe link with friends and family.</p>
-	<Input
-		type="text"
-		class="w-full rounded-md mt-2 text-xs text-gray-500"
-		value="https://www.recipe1.com/djflsdfjljl123456"
-	/>
-	<svelte:fragment slot="footer">
-		<Button size="sm" color="primary">Copy Link</Button>
-	</svelte:fragment>
-</Modal>
+<Dialog.Root bind:open>
+	<Dialog.Content class="max-w-sm rounded-2xl">
+		<Dialog.Header class="mt-4 text-left">
+			<Dialog.Title class="text-3xl">Recipe Link</Dialog.Title>
+			<Dialog.Description class="pt-2 text-gray-600 leading-relaxed">
+				Copy recipe link and share your recipe link with friends and family.
+			</Dialog.Description>
+		</Dialog.Header>
+		<div class="my-2">
+			<div class="px-3 py-4 border border-gray-100 text-gray-600 bg-gray-100 text-sm rounded-md">
+				https://www.recipe1.com/djflsdfjljl123456
+			</div>
+		</div>
+		<Dialog.Footer>
+			<Button size="sm">Copy Link</Button>
+		</Dialog.Footer>
+	</Dialog.Content>
+</Dialog.Root>

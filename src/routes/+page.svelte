@@ -1,11 +1,10 @@
 <script lang="ts">
-	import ChefHatIcon from '../assets/images/chef_hat.png';
-	import { ArrowRight } from 'lucide-svelte';
 	import { goto } from '$app/navigation';
+	import { ArrowRight } from 'lucide-svelte';
 	import { onMount } from 'svelte';
-	import { fly, slide } from 'svelte/transition';
+	import ChefHatIcon from '../assets/images/chef_hat.png';
 
-	import Button from '$lib/Button.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
 	import { miniAppInitializer } from '../miniAppInitializer';
 
 	let isLogin,
@@ -16,7 +15,6 @@
 		miniAppInitializer()
 			.then((user: any) => {
 				if (user?.user_profile) {
-					console.log(user?.user_profile);
 					isLogin = true;
 					canRender = true;
 					goto('/profile');
@@ -36,26 +34,30 @@
 	});
 </script>
 
-<main class="main">
-	<div class="content">
+<div class="main">
+	<div class="flex flex-col justify-between items-center text-white text-center h-full">
 		<div class="cta__heading">
 			<img src={ChefHatIcon} alt="chef-cap" />
-			<p>100+ Premium Recipe</p>
+			<p class="text-lg font-medium">100k+ Premium Recipes</p>
 		</div>
-		<div class="cta__desc">
-			<h1>Get Cooking</h1>
-			<p>Simple way to find Tasty Recipe</p>
-		</div>
-		<div class="cta__btn">
-			<Button
-				type="button"
-				label={'Start Cooking'}
-				icon={ArrowRight}
-				onClick={() => goto('/login')}
-			/>
+		<div>
+			<div>
+				<h1 class="font-semibold text-5xl leading-tight">Get Cooking</h1>
+				<p class="pt-5">Simple way to find Tasty Recipe</p>
+			</div>
+			<div class="mt-16 w-full">
+				<Button
+					size="lg"
+					on:click={() => goto('/login')}
+					class="px-4 py-5 w-full font-medium text-lg h-14"
+				>
+					{'Start Cooking'}
+					<ArrowRight class="ml-3 w-5 h-5" />
+				</Button>
+			</div>
 		</div>
 	</div>
-</main>
+</div>
 
 <style>
 	.main {
@@ -65,18 +67,8 @@
 			url('../assets/images/splash.png');
 		background-size: contain;
 		padding-block: 104px 95px;
-		padding-inline: 50px;
+		padding-inline: 78px;
 	}
-
-	.content {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		color: #ffffff;
-		text-align: center;
-	}
-
 	.cta__heading {
 		display: flex;
 		flex-direction: column;
@@ -86,20 +78,5 @@
 
 	.cta__heading img {
 		width: 79px;
-	}
-
-	.cta__desc {
-		margin-top: 130px;
-	}
-
-	.cta__desc > h1 {
-		font-size: 50px;
-		line-height: 1.2;
-		font-weight: 600;
-		margin-bottom: 20px;
-	}
-
-	.cta__btn {
-		margin-top: 64px;
 	}
 </style>

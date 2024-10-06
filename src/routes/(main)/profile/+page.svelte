@@ -1,9 +1,9 @@
 <script lang="ts">
-	import TopNavigation from '$lib/TopNavigation.svelte';
-	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
-	import ChefProfileImg from '../../../assets/images/chef-profile.png';
-	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
 	import RecipeVideoCard from '$lib/RecipeVideoCard.svelte';
+	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
+	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
+	import TopNavigation from '$lib/TopNavigation.svelte';
+	import ChefProfileImg from '../../../assets/images/chef-profile.png';
 
 	const navOptions = ['Recipe', 'Videos', 'Tag'];
 	let openRecipeShareDialog: boolean = false;

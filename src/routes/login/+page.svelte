@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from '$lib/Button.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
 	import InputField from '$lib/InputField.svelte';
 	import OtherSignInOption from '$lib/OtherSignInOption.svelte';
 	import { ArrowRight } from 'lucide-svelte';
@@ -65,7 +65,9 @@
 
 		<div class="forgot__pwdlink"><a href={'#'}>Forgot Password?</a></div>
 		<div class="btn__group">
-			<Button type="submit" label={'Login'} icon={ArrowRight} onClick={() => {}} />
+			<Button type="submit" class="w-full h-12 text-base font-bold"
+				>{'Login'} <ArrowRight class="ml-2" /></Button
+			>
 		</div>
 
 		<OtherSignInOption />

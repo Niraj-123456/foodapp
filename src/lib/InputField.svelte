@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Input from './components/ui/input/input.svelte';
 	import Label from './components/ui/label/label.svelte';
+	import { cn } from './utils';
 
 	export let label: string;
 	export let type: string = 'text';
@@ -8,14 +9,13 @@
 	export let name: string;
 	export let placeholder: string;
 	export let value: any;
-	export let hasError: boolean;
-	export let errorMsg: string;
+	export let inputClass: string | undefined = '';
 
-	$: hasError;
-	console.log('has error', hasError);
+	export let hasError: boolean | undefined = false;
+	export let errorMsg: string | undefined = '';
 </script>
 
-<div class="w-full flex flex-col gap-3 mt-8">
+<div class="w-full flex flex-col gap-3 mt-5">
 	{#if label} <Label for={id} class="text-gray-700">{label}</Label> {/if}
 	<Input
 		{type}
@@ -23,7 +23,7 @@
 		{id}
 		{placeholder}
 		bind:value
-		class={hasError ? 'border-red-600' : 'h-12 placeholder:text-gray-400'}
+		class={cn(hasError ? 'border-red-600' : 'h-12 placeholder:text-gray-300', inputClass)}
 	/>
 	{#if hasError && errorMsg}
 		<p class="text-red-600 text-sm">

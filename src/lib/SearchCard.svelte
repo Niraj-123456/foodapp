@@ -4,32 +4,24 @@
 	export let food: any;
 </script>
 
-<div class="main">
+<div class="w-full h-full rounded-[10px] overflow-hidden relative">
 	<img src={food?.strMealThumb} alt={food?.strMeal} />
 	<div class="content__wrapper">
-		<div class="rating">
-			<span
+		<div class="flex justify-end">
+			<span class="flex items-center gap-1 bg-[#ffe1b3] rounded-[20px] py-[1px] px-[7.5px]"
 				><Star class="text-[#FFAD30] w-4 h-4" />
-				<p>4.0</p></span
+				<p class="text-[10px]">4.0</p></span
 			>
 		</div>
 
-		<div class="content">
-			<h1>{food?.strMeal}</h1>
-			<p>{food?.strCategory}</p>
+		<div class="text-white">
+			<h1 class="text-base font-semibold leading-[16px]">{food?.strMeal}</h1>
+			<p class="text-gray-300 text-xs mt-1">{food?.strCategory}</p>
 		</div>
 	</div>
 </div>
 
 <style>
-	.main {
-		width: 150px;
-		height: 150px;
-		border-radius: 10px;
-		overflow: hidden;
-		position: relative;
-	}
-
 	.content__wrapper {
 		position: absolute;
 		top: 0;
@@ -41,39 +33,5 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-	}
-
-	.rating {
-		display: flex;
-		justify-content: flex-end;
-	}
-
-	.rating > span {
-		display: flex;
-		align-items: center;
-		gap: 4px;
-		background: #ffe1b3;
-		border-radius: 20px;
-		padding: 1px 7.5px;
-	}
-
-	.rating > span > p {
-		font-size: 10px;
-	}
-
-	.content {
-		color: #fff;
-	}
-
-	.content > h1 {
-		font-size: 12px;
-		font-weight: 600;
-		line-height: 16px;
-	}
-
-	.content > p {
-		margin-top: 3px;
-		font-size: 9px;
-		color: var(--color-gray);
 	}
 </style>

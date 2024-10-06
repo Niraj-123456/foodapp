@@ -1,6 +1,6 @@
 <script lang="ts">
+	import Button from '$lib/components/ui/button/button.svelte';
 	import InputField from '$lib/InputField.svelte';
-	import Button from '$lib/Button.svelte';
 	import OtherSignInOption from '$lib/OtherSignInOption.svelte';
 
 	import { ArrowRight } from 'lucide-svelte';
@@ -41,7 +41,9 @@
 				name="name"
 				placeholder="Enter Name"
 				bind:value={name}
+				inputClass="h-14"
 			/>
+
 			<InputField
 				label="Email"
 				type="email"
@@ -49,6 +51,7 @@
 				name="email"
 				placeholder="Enter Email"
 				bind:value={email}
+				inputClass="h-14"
 			/>
 			<InputField
 				label="Password"
@@ -57,6 +60,7 @@
 				name="password"
 				placeholder="Enter Password"
 				bind:value={password}
+				inputClass="h-14"
 			/>
 			<InputField
 				label="Confirm Password"
@@ -65,6 +69,7 @@
 				name="confirmPassword"
 				placeholder="Retype Password"
 				bind:value={confirmPassword}
+				inputClass="h-14"
 			/>
 
 			<div class="terms">
@@ -73,7 +78,9 @@
 			</div>
 
 			<div class="btn__group">
-				<Button type="submit" label="Sign Up" icon={ArrowRight} onClick={() => {}} />
+				<Button type="submit" class="w-full h-12 text-base font-bold"
+					>Sign Up <ArrowRight class="ml-2" /></Button
+				>
 			</div>
 		</form>
 

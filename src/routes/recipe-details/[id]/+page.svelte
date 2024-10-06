@@ -1,37 +1,25 @@
 <script lang="ts">
-	/** @type {import('./$types').PageData} */
-
-	import TopNavigation from '$lib/TopNavigation.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
 	import IngredientAndProcedure from '$lib/IngredientAndProcedure.svelte';
-	import Owner from '../../../assets/images/chef.png';
 	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
+	import TopNavigation from '$lib/TopNavigation.svelte';
+	import Owner from '../../../assets/images/chef.png';
 
-	import {
-		Icon,
-		ArrowLeft,
-		DotsHorizontal,
-		Clock,
-		Bookmark,
-		Star,
-		LocationMarker,
-		Heart,
-		Play,
-		Share
-	} from 'svelte-hero-icons';
+	import { Bookmark, Clock, Heart, MapPin, Play, Star } from 'lucide-svelte';
 
 	export let data: any;
 
 	let showLeftIcon: boolean = true;
 	let heading: string = '';
 	let showRightIcon: boolean = true;
-	let ingredients: [] = [];
-	let measurements: [] = [];
-	let procedures: [] = [];
+	let ingredients: string[] = [];
+	let measurements: string[] = [];
+	let procedures: string[] = [];
 	let isFollowing: boolean = false;
 	let openRecipeShareDialog: boolean = false;
 
 	//get all recipe ingredients and procedures
-	Object.entries(data?.recipe).forEach(([key, value]: any) => {
+	Object.entries(data?.recipe).forEach(([key, value]: [string, any]) => {
 		if (key.match('strIngredient') && value !== null && value !== undefined && value !== '') {
 			ingredients.push(value);
 		}
@@ -50,22 +38,24 @@
 </script>
 
 <div class="main">
-	<TopNavigation {showLeftIcon} {heading} {showRightIcon} {handleOpenRecipeShareDialog} />
+	<TopNavigation {showLeftIcon} {heading} {showRightIcon} open={openRecipeShareDialog} />
 
 	<div class="recipe__wrapper">
 		<img src={data?.recipe?.strMealThumb} alt={data?.recipe?.strMeal} />
 		<div class="content">
 			<div class="rating">
-				<Icon src={Star} solid size="15px" class="text-[#FFAD30]" />
+				<Star class="text-[#FFAD30] w-4 h-4" />
 				<span>4.0</span>
 			</div>
-			<span class="play__icon" on:click={() => console.log('play')} on:keydown
-				><Icon src={Play} size="60px" class="text-white opacity-50" /></span
-			>
+			<div class="flex justify-center w-full">
+				<Button class="bg-transparent hover:bg-gray-300/70 h-12"
+					><Play class="text-white opacity-50 w-10 h-10" /></Button
+				>
+			</div>
 			<div class="preparation__time">
-				<Icon src={Clock} size="18px" />
+				<Clock class="w-5 h-5" />
 				<span>20 min</span>
-				<Icon src={Bookmark} size="20px" class="text-[#130F26] rounded-full p-[3px] bg-white" />
+				<Bookmark class="text-[#130F26] rounded-full p-[3px] bg-white w-5 h-5" />
 			</div>
 		</div>
 	</div>
@@ -82,48 +72,34 @@
 			<div class="name__location">
 				<p><a href="/profile">Laura Wilson</a></p>
 				<span>
-					<Icon src={LocationMarker} solid size="14px" class="text-[#71B1A1]" /> Lagos, Nigeria
+					<MapPin class="text-[#71B1A1] w-3 h-3" /> Lagos, Nigeria
 				</span>
 			</div>
 			<button class="follow__btn" on:click={() => (isFollowing = !isFollowing)}>
 				{!isFollowing ? 'Follow' : 'Following'}
-				<Icon
-					src={Heart}
-					size="22px"
-					solid
-					class={`${
-						isFollowing ? 'text-red-500' : 'text-white'
-					} transition-[color] ease-in-out delay-1s`}
-				/>
+				{#if isFollowing}
+					<Heart class="text-red-500 fill-red-500 w-4 h-4" />
+				{/if}
 			</button>
 		</div>
 	</div>
 
 	<IngredientAndProcedure {ingredients} {measurements} {procedures} />
 
-	<ShareRecipeModal {openRecipeShareDialog} />
+	<ShareRecipeModal open={openRecipeShareDialog} />
 </div>
 
 <style>
 	.main {
-		width: 100%;
-		padding-inline: 30px;
-		padding-block: 50px 30px;
+		@apply w-full px-7 pt-12 pb-7;
 	}
 
 	.recipe__wrapper {
-		margin-top: 10px;
-		width: 100%;
-		height: 150px;
-		border-radius: 10px;
-		overflow: hidden;
-		position: relative;
+		@apply mt-3 w-full aspect-video rounded-lg overflow-hidden relative;
 	}
 
 	.recipe__wrapper > img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+		@apply w-full h-full object-cover;
 	}
 
 	.content {
@@ -131,7 +107,7 @@
 		top: 0;
 		left: 0;
 		width: inherit;
-		height: inherit;
+		height: 100%;
 		background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
 		display: flex;
 		flex-direction: column;
@@ -141,12 +117,7 @@
 	}
 
 	.rating {
-		display: flex;
-		align-items: center;
-		gap: 4px;
-		background: #ffe1b3;
-		border-radius: 20px;
-		padding: 1px 7.5px;
+		@apply flex items-center gap-1 bg-[#ffe1b3] rounded-3xl py-0.5 px-2;
 	}
 
 	.rating > span {

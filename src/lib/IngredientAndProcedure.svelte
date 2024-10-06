@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Cover from '../assets/images/cover.png';
+	import Platter from '../assets/icons/platter.svg';
 	import Tomato from '../assets/images/tomato.png';
 
-	export let ingredients: [];
-	export let procedures: [];
-	export let measurements: [];
+	export let ingredients: string[];
+	export let procedures: string[];
+	export let measurements: string[];
 
 	const options = [
 		{ id: 1, value: 'ingredient' },
@@ -20,36 +20,33 @@
 <div class="main">
 	<ul class="inge__proced__btns">
 		{#each options as option}
-			<li
-				class={index === option?.id ? 'active' : ''}
-				on:click={() => handleIndexChange(option?.id)}
-				on:keydown
-			>
-				{option?.value}
+			<li class={index === option?.id ? 'active' : ''}>
+				<span role="button" tabindex="-1" on:click={() => handleIndexChange(option?.id)} on:keydown>
+					{option?.value}
+				</span>
 			</li>
 		{/each}
 	</ul>
 
 	<div class="serving__items">
 		<div class="serving">
-			<img src={Cover} alt="icon" width="25px" height="25px" />
-			<span>{1} Serve</span>
+			<img src={Platter} alt="" width="22px" height="22px" />
+			<div>{1} Serve</div>
 		</div>
-		<div class="items">
-			<span> {index === 1 ? `${ingredients.length} Items` : `${procedures.length} Steps`}</span>
-		</div>
+
+		<div>{index === 1 ? `${ingredients.length} Items` : `${procedures.length} Steps`}</div>
 	</div>
 
 	<div class="inge__proced">
 		{#if index === 1}
 			<div class="ingredients">
-				{#each ingredients as ingredient}
+				{#each ingredients as ingredient, index}
 					<div class="ingredient">
 						<div class="ingredient__name__img">
 							<img src={Tomato} alt="ingre-name" width="52px" height="52px" />
 							<span>{ingredient}</span>
 						</div>
-						<div class="ingre__measurement">500g</div>
+						<div class="ingre__measurement">{measurements[index]}</div>
 					</div>
 				{/each}
 			</div>
@@ -83,39 +80,23 @@
 	}
 
 	.inge__proced__btns {
-		padding-block: 13px;
-		display: flex;
-		justify-content: space-between;
+		@apply py-3 flex justify-between;
 	}
 
 	.inge__proced__btns > li {
-		color: var(--color-green-2);
-		padding: 12px 30px;
-		border-radius: 10px;
-		font-size: 16px;
-		font-weight: 600;
-		line-height: 16px;
-		text-transform: capitalize;
+		@apply text-primary py-2 px-12 text-base font-bold capitalize rounded-lg transition-all duration-300 ease-in-out;
 	}
 
 	.inge__proced__btns > li.active {
-		background: var(--color-green);
-		color: var(--color-white);
-		transition: all 450ms ease-in-out;
+		@apply bg-primary text-white;
 	}
 
 	.serving__items {
-		margin-top: 30px;
-		display: flex;
-		justify-content: space-between;
-		color: var(--color-gray-2);
-		font-size: 14px;
+		@apply mt-8 flex items-center justify-between text-gray-500 text-sm;
 	}
 
 	.serving {
-		display: flex;
-		gap: 5px;
-		align-items: center;
+		@apply flex gap-1 items-center;
 	}
 
 	.inge__proced {
@@ -136,7 +117,7 @@
 	.procedure {
 		border-radius: 12px;
 		padding: 12px 15px;
-		background: var(--color-gray);
+		background: var(--color-light-gray);
 		margin-bottom: 10px;
 	}
 

@@ -3,8 +3,6 @@
 	import Transition from '../lib/Transition.svelte';
 </script>
 
-<Transition refresh={''}>
-	<div class="w-full h-[100%] relative">
-		<slot />
-	</div>
-</Transition>
+<main class="w-full min-h-screen h-full relative">
+	<slot />
+</main>

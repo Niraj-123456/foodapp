@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { Dropdown, DropdownItem } from 'flowbite-svelte';
-	import { ArrowLeft, Ellipsis, Share, Star, MessageSquareQuote, Bookmark } from 'lucide-svelte';
+	import { ArrowLeft, Bookmark, Ellipsis, MessageSquareQuote, Share, Star } from 'lucide-svelte';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
+	import Button from './components/ui/button/button.svelte';
+
 	export let showLeftIcon: boolean, heading: string, showRightIcon: boolean, open: boolean;
 </script>
 
 <div class="main">
 	{#if showLeftIcon}
-		<span on:click={() => history.back()} on:keydown><ArrowLeft /></span>
+		<Button variant="ghost" class="p-0" on:click={() => history.back()}><ArrowLeft /></Button>
 	{:else}
 		<div />
 	{/if}
@@ -16,17 +18,30 @@
 		<div />
 	{/if}
 	{#if showRightIcon}
-		<span role="button" tabindex="0"><Ellipsis /></span>
-		<Dropdown class="left-10">
-			<DropdownItem on:click={() => (open = true)} class="flex items-center gap-2 py-3 px-4"
-				><Share /> Share</DropdownItem
-			>
-			<DropdownItem class="flex items-center gap-2 py-3 px-4"><Star /> Rate Recipe</DropdownItem>
-			<DropdownItem class="flex items-center gap-2 py-3 px-4"
-				><MessageSquareQuote /> Review</DropdownItem
-			>
-			<DropdownItem class="flex items-center gap-2 py-3 px-4"><Bookmark /> Unsave</DropdownItem>
-		</Dropdown>
+		<DropdownMenu.Root>
+			<DropdownMenu.Trigger>
+				<Ellipsis class="text-gray-900 hover:text-gray-500" />
+			</DropdownMenu.Trigger>
+
+			<DropdownMenu.Content class="p-2">
+				<DropdownMenu.Item on:click={() => (open = true)}>
+					<Share class="w-4 h-4 mr-2" />
+					<span>Share</span>
+				</DropdownMenu.Item>
+				<DropdownMenu.Item>
+					<Star class="w-4 h-4 text-gray-600 mr-2" />
+					<span> Rate Recipe </span>
+				</DropdownMenu.Item>
+				<DropdownMenu.Item>
+					<MessageSquareQuote class="w-4 h-4 text-gray-600 mr-2" />
+					<span> Give Review </span>
+				</DropdownMenu.Item>
+				<DropdownMenu.Item>
+					<Bookmark class="w-4 h-4 text-gray-600 mr-2" />
+					<span> Save </span>
+				</DropdownMenu.Item>
+			</DropdownMenu.Content>
+		</DropdownMenu.Root>
 	{:else}
 		<div />
 	{/if}

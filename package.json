@@ -40,6 +40,7 @@
 		"image-salon-sdk": "^1.0.28",
 		"lucide-svelte": "^0.424.0",
 		"tailwind-merge": "^2.5.2",
-		"tailwind-variants": "^0.2.1"
+		"tailwind-variants": "^0.2.1",
+		"vaul-svelte": "^0.3.2"
 	}
 }
