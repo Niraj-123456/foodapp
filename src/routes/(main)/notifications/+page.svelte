@@ -238,14 +238,10 @@
 	}
 	.main {
 		width: 100%;
-		padding-inline: 30px;
-		padding-block: 50px 120px;
 	}
 
 	.notification__navs {
 		margin-top: 10px;
-		margin-left: -10px;
-		margin-right: -10px;
 	}
 
 	.notification__navs ul {
@@ -255,14 +251,11 @@
 	}
 
 	.notification__navs ul li {
-		padding: 8px 35px;
-		color: var(--color-green-2);
-		border-radius: 10px;
+		@apply py-2 px-9 text-primary/80 rounded-[10px];
 	}
 
 	.notification__navs ul li.active {
-		background: var(--color-green);
-		color: var(--color-white);
+		@apply bg-primary text-white;
 	}
 
 	.notifications,
@@ -285,11 +278,7 @@
 	}
 
 	.notification__card {
-		background: var(--color-gray);
-		border-radius: 12px;
-		padding: 10px 15px;
-		display: flex;
-		gap: 26px;
+		@apply bg-gray-100 rounded-xl py-3 px-4 flex gap-7;
 	}
 
 	.card__content > h3 {

@@ -1,5 +1,5 @@
 <script>
-	import { Skeleton } from 'flowbite-svelte';
+	import { Skeleton } from '$lib/components/ui/skeleton/index';
 </script>
 
-<Skeleton class="w-[150px] h-[217px]" />
+<Skeleton class="w-[10rem] h-[276px] flex-shrink-0 flex shadow-sm" />

@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="text-white">
-			<h1 class="text-base font-semibold leading-[16px]">{food?.strMeal}</h1>
+			<h1 class="text-sm font-semibold">{food?.strMeal}</h1>
 			<p class="text-gray-300 text-xs mt-1">{food?.strCategory}</p>
 		</div>
 	</div>

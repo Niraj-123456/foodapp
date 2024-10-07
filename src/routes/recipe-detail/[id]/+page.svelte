@@ -31,13 +31,9 @@
 			procedures = procedureSteps.filter((procedure: string) => procedure !== '');
 		}
 	});
-
-	const handleOpenRecipeShareDialog = () => {
-		openRecipeShareDialog = true;
-	};
 </script>
 
-<div class="main">
+<div class="w-full">
 	<TopNavigation {showLeftIcon} {heading} {showRightIcon} open={openRecipeShareDialog} />
 
 	<div class="recipe__wrapper">
@@ -90,10 +86,6 @@
 </div>
 
 <style>
-	.main {
-		@apply w-full px-7 pt-12 pb-7;
-	}
-
 	.recipe__wrapper {
 		@apply mt-3 w-full aspect-video rounded-lg overflow-hidden relative;
 	}

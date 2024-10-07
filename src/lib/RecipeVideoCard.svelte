@@ -4,13 +4,15 @@
 </script>
 
 <div class="card">
-	<img src={RecipeImg2} alt="recipe" />
+	<img src={RecipeImg2} alt="recipe" class="w-full h-full object-contain" />
 	<div class="card__content">
 		<div class="rating">
 			<Star class="text-[#FFAD30] w-4 h-4" />
 			<p>4.0</p>
 		</div>
-		<Play class="text-white opacity-[0.5] flex w-14 h-14" />
+		<div class="w-full flex justify-center">
+			<Play class="text-white opacity-[0.5] flex w-14 h-14" />
+		</div>
 		<div class="preparation__time">
 			<Clock />
 			<span>20 min</span>
@@ -32,11 +34,13 @@
 
 	.card {
 		width: 100%;
-		height: 150px;
+		height: 100%;
 		border-radius: 10px;
 		overflow: hidden;
 		position: relative;
 		animation: slideFromLeft 750ms linear;
+
+		@apply aspect-video;
 	}
 
 	.card > img {

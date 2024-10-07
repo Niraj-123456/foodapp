@@ -26,6 +26,9 @@
 			errors.delete('password');
 		}
 
+		// re-assign errors variable to cause re-render
+		errors = new Map(errors);
+
 		return errors.size === 0;
 	};
 
@@ -50,6 +53,7 @@
 			bind:value={email}
 			hasError={errors.has('email')}
 			errorMsg={errors.get('email')}
+			inputClass="h-14"
 		/>
 
 		<InputField
@@ -61,6 +65,7 @@
 			bind:value={password}
 			hasError={errors.has('password')}
 			errorMsg={errors.get('password')}
+			inputClass="h-14"
 		/>
 
 		<div class="forgot__pwdlink"><a href={'#'}>Forgot Password?</a></div>

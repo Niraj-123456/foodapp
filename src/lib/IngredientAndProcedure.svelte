@@ -84,11 +84,11 @@
 	}
 
 	.inge__proced__btns > li {
-		@apply text-primary py-2 px-12 text-base font-bold capitalize rounded-lg transition-all duration-300 ease-in-out;
+		@apply text-primary py-2 px-12 text-base font-medium capitalize rounded-lg transition-all duration-300 ease-in-out;
 	}
 
 	.inge__proced__btns > li.active {
-		@apply bg-primary text-white;
+		@apply bg-primary text-white font-semibold;
 	}
 
 	.serving__items {
@@ -115,10 +115,7 @@
 
 	.ingredient,
 	.procedure {
-		border-radius: 12px;
-		padding: 12px 15px;
-		background: var(--color-light-gray);
-		margin-bottom: 10px;
+		@apply bg-gray-100 rounded-xl py-3 px-4 mb-3;
 	}
 
 	.ingredient__name__img {

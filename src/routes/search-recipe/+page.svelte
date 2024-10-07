@@ -48,11 +48,11 @@
 	};
 </script>
 
-<div class="w-full h-full py-12 px-8">
+<div class="w-full h-full">
 	<TopNavigation {showLeftIcon} {heading} {showRightIcon} open={openRecipeShareDialog} />
 
 	<div class="flex items-center gap-4 mt-5">
-		<SearchInput {debounce} onFocus={() => {}} />
+		<SearchInput {debounce} />
 
 		<SearchFilter icon={SlidersHorizontal} open={openFilterDialog} />
 	</div>
@@ -76,13 +76,13 @@
 		{:else if foods && foods?.length > 0 && !error}
 			<div class="search__result">
 				{#each foods as food}
-					<a href={`/recipe-details/${food?.idMeal}`}>
+					<a href={`/recipe-detail/${food?.idMeal}`}>
 						<SearchCard {food} />
 					</a>
 				{/each}
 			</div>
 		{:else}
-			<div class="text-center w-full mt-48 text-lg font-bold">
+			<div class="text-center w-full mt-28 text-lg font-bold">
 				<RecipeNotFound />
 
 				<p class="pt-4">No Results Found</p>

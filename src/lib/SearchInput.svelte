@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Input } from 'flowbite-svelte';
 	import { Search } from 'lucide-svelte';
-	export let debounce: (e: any) => void;
-	export let onFocus: () => void;
+	export let debounce: (e: any) => void = () => {};
+	export let onFocus: () => Promise<void> | void = () => {};
 </script>
 
 <div class="relative w-full">

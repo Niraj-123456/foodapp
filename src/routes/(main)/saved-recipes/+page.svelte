@@ -32,8 +32,6 @@
 <style>
 	.main {
 		width: 100%;
-		padding-inline: 30px;
-		padding-block: 50px 130px;
 	}
 
 	.saved-recipe-wrapper {

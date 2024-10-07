@@ -12,9 +12,9 @@
 
 	export let data: any;
 	let currentCategoryIndex = 0;
-	let isLoading: boolean = false;
+	let isLoading: boolean = true;
 	let currentArea: string = 'American';
-	let recipeByAreas: [] = [];
+	let recipeByAreas: any[] = [];
 
 	$: currentArea, fetchRecipeByaArea();
 
@@ -55,7 +55,9 @@
 	</div>
 
 	<!-- search input -->
-	<SearchInput debounce={() => {}} onFocus={() => goto('/search-recipe')} />
+	<div class="mt-8">
+		<SearchInput onFocus={() => goto('/search-recipe')} />
+	</div>
 
 	<div class="catergory__navs">
 		{#each data?.areas as area, index}
@@ -70,8 +72,8 @@
 
 	<div class="recipe__card__wrapper">
 		{#if isLoading}
-			<div class="w-full flex gap-4">
-				{#each [0, 1, 2] as idx}
+			<div class="w-full flex gap-4 overflow-auto recipe__loading">
+				{#each [0, 1, 2, 4] as idx}
 					<CardLoadingUi />
 				{/each}
 			</div>
@@ -79,7 +81,9 @@
 			<div class="no__data__wrapper">No Data Found...</div>
 		{:else}
 			{#each recipeByAreas as recipeByArea}
-				<RecipeCard recipe={recipeByArea} />
+				<a href={`/recipe-detail/${recipeByArea?.idMeal}`}>
+					<RecipeCard recipe={recipeByArea} />
+				</a>
 			{/each}
 		{/if}
 	</div>
@@ -98,8 +102,6 @@
 <style>
 	.main {
 		width: 100%;
-		padding-inline: 30px;
-		padding-block: 50px 130px;
 	}
 	.header {
 		display: flex;
@@ -142,19 +144,17 @@
 	/* Hide scrollbar for Chrome, Safari and Opera */
 	.catergory__navs::-webkit-scrollbar,
 	.recipe__card__wrapper::-webkit-scrollbar,
-	.newrecipe__card__wrapper::-webkit-scrollbar {
+	.newrecipe__card__wrapper::-webkit-scrollbar,
+	.recipe__loading::-webkit-scrollbar {
 		display: none;
 	}
 
 	.catergory__navs .category__btn {
-		padding: 7px 20px;
-		color: var(--color-green-2);
-		border-radius: 10px;
+		@apply py-2 px-5 text-primary/80 rounded-[10px];
 	}
 
 	.catergory__navs .category__btn.active {
-		background: var(--color-green);
-		color: var(--color-white);
+		@apply bg-primary text-white;
 	}
 
 	.recipe__card__wrapper,
@@ -196,5 +196,6 @@
 	.newrecipe {
 		margin-top: 35px;
 		display: flex;
+		gap: 15px;
 	}
 </style>

@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { Home, Bookmark, Bell, User, Plus } from 'lucide-svelte';
+	import { cn } from './utils';
 
 	let options = [
 		{ link: '/home', icon: Home },
@@ -16,36 +17,27 @@
 	};
 </script>
 
-<div class="main">
+<div class="main w-full fixed bottom-0 left-0 py-2 px-8 bg-gray-300">
 	<ul class="footer__navs">
 		{#each options as option}
-			<li
-				on:click={() => handleNavigate(option?.link)}
-				class={option?.link === $page.url.pathname ? 'active' : ''}
-				on:keydown
-			>
-				<svelte:component
-					this={option.icon}
-					class={option?.link === '/add-recipes'
-						? 'bg-[#129575] text-white w-[48px] h-[48px] p-3 rounded-full'
-						: ''}
-				/>
+			<li class={option?.link === $page.url.pathname ? 'active' : ''}>
+				<a href={option?.link}>
+					<svelte:component
+						this={option.icon}
+						class={cn(
+							option?.link === '/add-recipes'
+								? 'bg-primary text-white w-[48px] h-[48px] p-3 rounded-full'
+								: '',
+							option.link === $page.url.pathname ? 'stroke-primary' : ''
+						)}
+					/>
+				</a>
 			</li>
 		{/each}
 	</ul>
 </div>
 
 <style>
-	.main {
-		width: 100%;
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		padding: 20px 20px;
-		margin-top: 20px;
-		background: #f5f5f5;
-	}
-
 	.footer__navs {
 		display: flex;
 		justify-content: space-between;
@@ -57,32 +49,32 @@
 	}
 
 	.footer__navs li:nth-child(3) {
-		margin-top: -65px;
+		transform: translateY(-35px);
 		border-radius: 50%;
 		position: relative;
-		border: solid 5px #fff;
+		border: solid 6px #fff;
 	}
 
 	.footer__navs li:nth-child(3)::after,
 	.footer__navs li:nth-child(3)::before {
 		content: '';
 		position: absolute;
-		top: 50%;
+		top: 43%;
 		width: 20px;
 		height: 20px;
-		background: transparent;
+		z-index: 2;
 	}
 
 	.footer__navs li:nth-child(3)::before {
-		left: -40%;
+		left: -23px;
 		border-top-right-radius: 20px;
-		box-shadow: 0 -10px 0 0 #fff;
+		box-shadow: 1px -8px 0 0 currentColor;
 	}
 
 	.footer__navs li:nth-child(3)::after {
-		right: -42%;
+		right: -23px;
 		border-top-left-radius: 20px;
-		box-shadow: 0px -10px 0 0 #fff;
+		box-shadow: 0px -8px 0 0 #fff;
 	}
 
 	.footer__navs li.active {

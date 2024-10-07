@@ -16,17 +16,19 @@
 </script>
 
 <div class="w-full flex flex-col gap-3 mt-5">
-	{#if label} <Label for={id} class="text-gray-700">{label}</Label> {/if}
+	{#if label}
+		<Label for={id} class={cn(hasError ? 'text-red-600' : 'text-gray-500')}>{label}</Label>
+	{/if}
 	<Input
 		{type}
 		{name}
 		{id}
 		{placeholder}
 		bind:value
-		class={cn(hasError ? 'border-red-600' : 'h-12 placeholder:text-gray-300', inputClass)}
+		class={cn('h-12 placeholder:text-gray-300', hasError ? 'border-red-600' : '', inputClass)}
 	/>
 	{#if hasError && errorMsg}
-		<p class="text-red-600 text-sm">
+		<p class="text-red-600 text-xs">
 			{errorMsg}
 		</p>
 	{/if}

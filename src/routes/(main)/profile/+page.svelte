@@ -40,12 +40,10 @@
 		</div>
 		<ul class="nav__btns">
 			{#each navOptions as option, index}
-				<li
-					class={currentOption === index ? 'active' : ''}
-					on:click={() => (currentOption = index)}
-					on:keydown
-				>
-					{option}
+				<li class={currentOption === index ? 'active' : ''}>
+					<button on:click={() => (currentOption = index)}>
+						{option}
+					</button>
 				</li>
 			{/each}
 		</ul>
@@ -72,8 +70,6 @@
 <style>
 	.main {
 		width: 100%;
-		padding-inline: 30px;
-		padding-block: 50px 120px;
 	}
 
 	.profile__wrapper {
