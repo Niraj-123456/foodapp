@@ -3,7 +3,7 @@
 	import IngredientAndProcedure from '$lib/IngredientAndProcedure.svelte';
 	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
 	import TopNavigation from '$lib/TopNavigation.svelte';
-	import Owner from '../../../assets/images/chef.png';
+	import Owner from '../../../../assets/images/chef.png';
 
 	import { Bookmark, Clock, Heart, MapPin, Play, Star } from 'lucide-svelte';
 

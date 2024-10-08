@@ -48,7 +48,7 @@
 	};
 </script>
 
-<div class="w-full h-full">
+<div class="w-full">
 	<TopNavigation {showLeftIcon} {heading} {showRightIcon} open={openRecipeShareDialog} />
 
 	<div class="flex items-center gap-4 mt-5">
@@ -57,7 +57,7 @@
 		<SearchFilter icon={SlidersHorizontal} open={openFilterDialog} />
 	</div>
 
-	<div class="mt-5 w-full h-full">
+	<div class="mt-5">
 		<div class="flex justify-between items-center w-full">
 			{#if searchMode}
 				<h3 class="font-semibold leading-6">Search Result</h3>

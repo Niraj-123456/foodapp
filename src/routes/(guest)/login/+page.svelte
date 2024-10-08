@@ -3,7 +3,7 @@
 	import InputField from '$lib/InputField.svelte';
 	import OtherSignInOption from '$lib/OtherSignInOption.svelte';
 	import { ArrowRight } from 'lucide-svelte';
-	import { emailRegex } from '../../utils/helperString';
+	import { emailRegex } from '../../../utils/helperString';
 
 	let email: string = '';
 	let password: string = '';
@@ -86,8 +86,6 @@
 <style>
 	.main {
 		width: 100%;
-		min-height: 100vh;
-		padding-inline: 30px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

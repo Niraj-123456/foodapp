@@ -24,6 +24,12 @@
 	const handleChangeCategoryFilter = (key: string) => {
 		selectedCategoryFilter = key;
 	};
+
+	const handleResetFilterValues = () => {
+		selectedTimeFilter = 'ALL';
+		selectedRateFilter = '5';
+		selectedCategoryFilter = 'ALL';
+	};
 </script>
 
 <Drawer.Root bind:open>
@@ -89,8 +95,13 @@
 					{/each}
 				</div>
 			</div>
-			<div class="mt-10 w-full">
-				<Button class="w-full h-12 text-lg">Filter</Button>
+			<div class="mt-8 w-full">
+				<Button
+					on:click={handleResetFilterValues}
+					variant="outline"
+					class="w-full h-12 text-lg rounded-full border-primary text-primary">Reset</Button
+				>
+				<Button class="mt-2 w-full h-12 text-lg rounded-full">Filter</Button>
 			</div>
 		</div>
 	</Drawer.Content>

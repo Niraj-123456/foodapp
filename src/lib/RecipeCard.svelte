@@ -5,7 +5,7 @@
 </script>
 
 <div
-	class="w-40 max-w-[10rem] h-full bg-gray-200 overflow-hidden rounded-xl flex-shrink-0 flex flex-col shadow-sm"
+	class="w-44 max-w-[11rem] h-full bg-gray-200 overflow-hidden rounded-xl flex-shrink-0 flex flex-col shadow-sm"
 >
 	<div class="relative w-full aspect-square">
 		<img

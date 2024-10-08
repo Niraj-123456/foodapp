@@ -17,7 +17,7 @@
 	};
 </script>
 
-<div class="main w-full fixed bottom-0 left-0 py-2 px-8 bg-gray-300">
+<div class="w-full fixed bottom-0 left-0 py-2 px-8 bg-gray-300">
 	<ul class="footer__navs">
 		{#each options as option}
 			<li class={option?.link === $page.url.pathname ? 'active' : ''}>
@@ -28,7 +28,9 @@
 							option?.link === '/add-recipes'
 								? 'bg-primary text-white w-[48px] h-[48px] p-3 rounded-full'
 								: '',
-							option.link === $page.url.pathname ? 'stroke-primary' : ''
+							option.link === $page.url.pathname && option?.link !== '/add-recipes'
+								? 'stroke-primary'
+								: ''
 						)}
 					/>
 				</a>
@@ -68,7 +70,7 @@
 	.footer__navs li:nth-child(3)::before {
 		left: -23px;
 		border-top-right-radius: 20px;
-		box-shadow: 1px -8px 0 0 currentColor;
+		box-shadow: 1px -8px 0 0 #fff;
 	}
 
 	.footer__navs li:nth-child(3)::after {
