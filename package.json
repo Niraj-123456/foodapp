@@ -35,7 +35,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"bits-ui": "^0.21.15",
+		"bits-ui": "^0.21.16",
 		"clsx": "^2.1.1",
 		"image-salon-sdk": "^1.0.28",
 		"lucide-svelte": "^0.424.0",

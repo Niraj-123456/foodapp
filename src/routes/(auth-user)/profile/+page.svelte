@@ -1,4 +1,5 @@
 <script lang="ts">
+	import RateRecipeDialog from '$lib/RateRecipeDialog.svelte';
 	import RecipeVideoCard from '$lib/RecipeVideoCard.svelte';
 	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
 	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
@@ -6,17 +7,11 @@
 	import ChefProfileImg from '../../../assets/images/chef-profile.png';
 
 	const navOptions = ['Recipe', 'Videos', 'Tag'];
-	let openRecipeShareDialog: boolean = false;
 	let currentOption = 0;
 </script>
 
 <div class="main">
-	<TopNavigation
-		showLeftIcon={true}
-		heading="Profile"
-		showRightIcon={true}
-		bind:open={openRecipeShareDialog}
-	/>
+	<TopNavigation showLeftIcon={true} heading="Profile" showRightIcon={true} />
 	<div class="profile__wrapper">
 		<div class="profile">
 			<img src={ChefProfileImg} alt="profile" class="profile__img" />
@@ -65,7 +60,6 @@
 		</div>
 	</div>
 </div>
-<ShareRecipeModal bind:open={openRecipeShareDialog} />
 
 <style>
 	.main {

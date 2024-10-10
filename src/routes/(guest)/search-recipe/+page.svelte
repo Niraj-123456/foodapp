@@ -5,7 +5,7 @@
 	import TopNavigation from '$lib/TopNavigation.svelte';
 	import { Skeleton } from '$lib/components/ui/skeleton/index';
 	import { SlidersHorizontal } from 'lucide-svelte';
-	import RecipeNotFound from '$lib/components/icons/RecipeNotFound.svelte';
+	import RecipeNotFound from '$lib/icons/RecipeNotFound.svelte';
 
 	let searchQuery: string = '';
 	let foods: any[] = [];

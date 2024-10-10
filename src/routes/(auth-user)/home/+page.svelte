@@ -37,7 +37,6 @@
 			recipeByAreas = result?.meals;
 		} catch (ex) {
 			isLoading = false;
-			console.log(ex);
 		}
 	};
 
