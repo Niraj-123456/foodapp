@@ -3,7 +3,10 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	darkMode: ['class'],
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
+		'./node_modules/hp-livekit-sdk/**/*.{html,js,svelte,ts}'
+	],
 	safelist: ['dark'],
 	theme: {
 		container: {
