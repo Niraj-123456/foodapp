@@ -36,9 +36,7 @@
 	"type": "module",
 	"dependencies": {
 		"clsx": "^2.1.1",
-		"hp-livekit-sdk": "^1.0.3",
 		"image-salon-sdk": "^1.0.28",
-		"livekit-server-sdk": "^1.2.7",
 		"lucide-svelte": "^0.424.0",
 		"tailwind-merge": "^2.5.2",
 		"tailwind-variants": "^0.2.1",
