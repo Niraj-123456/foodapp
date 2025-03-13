@@ -1,18 +1,10 @@
 <script lang="ts">
 	import TopNavigation from '$lib/TopNavigation.svelte';
 	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
-	import StickyFooter from '$lib/StickyFooter.svelte';
-
-	let openRecipeShareDialog: boolean = false;
 </script>
 
 <div class="main">
-	<TopNavigation
-		showLeftIcon={true}
-		heading="Saved Recipes"
-		showRightIcon={false}
-		bind:open={openRecipeShareDialog}
-	/>
+	<TopNavigation showLeftIcon={true} heading="Saved Recipes" showRightIcon={false} />
 	<div class="saved-recipe-wrapper">
 		<RecipieCardWide />
 		<RecipieCardWide />

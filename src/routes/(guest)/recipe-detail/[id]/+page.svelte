@@ -34,7 +34,7 @@
 </script>
 
 <div class="w-full">
-	<TopNavigation {showLeftIcon} {heading} {showRightIcon} open={openRecipeShareDialog} />
+	<TopNavigation {showLeftIcon} {heading} {showRightIcon} />
 
 	<div class="recipe__wrapper">
 		<img src={data?.recipe?.strMealThumb} alt={data?.recipe?.strMeal} />
@@ -85,7 +85,7 @@
 	<ShareRecipeModal open={openRecipeShareDialog} />
 </div>
 
-<style>
+<style lang="postcss">
 	.recipe__wrapper {
 		@apply mt-3 w-full aspect-video rounded-lg overflow-hidden relative;
 	}
@@ -114,12 +114,6 @@
 
 	.rating > span {
 		font-size: 12px;
-	}
-
-	.play__icon {
-		width: 100%;
-		display: flex;
-		justify-content: center;
 	}
 
 	.preparation__time {

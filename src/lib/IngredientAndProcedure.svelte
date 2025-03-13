@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { HandPlatter } from 'lucide-svelte';
 	import Platter from '../assets/icons/platter.svg';
 	import Tomato from '../assets/images/tomato.png';
 
@@ -29,12 +30,14 @@
 	</ul>
 
 	<div class="serving__items">
-		<div class="serving">
-			<img src={Platter} alt="" width="22px" height="22px" />
-			<div>{1} Serve</div>
+		<div class="flex gap-1 items-end">
+			<HandPlatter class="text-gray-500 w-5 h-5" />
+			<span class="text-xs">{1} Serve</span>
 		</div>
 
-		<div>{index === 1 ? `${ingredients.length} Items` : `${procedures.length} Steps`}</div>
+		<div class="text-xs">
+			{index === 1 ? `${ingredients.length} Items` : `${procedures.length} Steps`}
+		</div>
 	</div>
 
 	<div class="inge__proced">
@@ -55,7 +58,7 @@
 				{#each procedures as procedure, index}
 					<div class="procedure">
 						<div>Step {index + 1}</div>
-						<p>
+						<p class="text-gray-500 mt-1 text-sm text-justify">
 							{procedure}.
 						</p>
 					</div>
@@ -65,7 +68,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
 	@keyframes slideFromLeft {
 		from {
 			transform: translateX(-100%);
@@ -93,10 +96,6 @@
 
 	.serving__items {
 		@apply mt-8 flex items-center justify-between text-gray-500 text-sm;
-	}
-
-	.serving {
-		@apply flex gap-1 items-center;
 	}
 
 	.inge__proced {
@@ -145,13 +144,5 @@
 	.procedure > div {
 		font-size: 16px;
 		font-weight: 600;
-	}
-
-	.procedure > p {
-		margin-top: 5px;
-		font-size: 14px;
-		color: var(--color-gray-2);
-		text-align: justify;
-		line-height: 18px;
 	}
 </style>

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Star } from 'lucide-svelte';
 	import { categoryMatrix, rateMatrix, timeMatrix } from '../../utils/searchFilterMatrix';
-	import Button from './ui/button/button.svelte';
-	import * as Drawer from './ui/drawer/index';
+	import { Button } from '$lib/components/ui/button/index';
+	import * as Drawer from '$lib/components/ui/drawer/index';
 	import { cn } from '$lib/utils';
 
 	export let label: string | undefined = '';
@@ -44,7 +44,7 @@
 		</Button>
 	</Drawer.Trigger>
 	<Drawer.Content class="border border-black rounded-t-[40px]">
-		<div class="px-8 pb-8 w-full">
+		<div class="px-8 pb-8 w-full mx-auto">
 			<Drawer.Header class="p-2 font-bold">Filter Search</Drawer.Header>
 			<div class="flex gap-4 flex-col">
 				<h4 class="font-bold">Time</h4>
@@ -53,7 +53,10 @@
 						<div
 							role="button"
 							tabindex="-1"
-							class={cn('filter_opt', selectedTimeFilter === time.key ? 'active' : '')}
+							class={cn(
+								'border border-primary text-primary px-2 py-1 rounded-[10px]',
+								selectedTimeFilter === time.key ? 'bg-primary text-white' : ''
+							)}
 							on:click={() => handleChangeTimeFilter(time.key)}
 							on:keydown
 						>
@@ -69,7 +72,10 @@
 						<div
 							role="button"
 							tabindex="-1"
-							class={cn('filter_opt rate', selectedRateFilter === rate ? 'active' : '')}
+							class={cn(
+								'border border-primary text-primary px-2 py-1 rounded-[10px] flex gap-1 items-center',
+								selectedRateFilter === rate ? 'bg-primary text-white' : ''
+							)}
 							on:click={() => handhleChangeRateFilter(rate)}
 							on:keydown
 						>
@@ -86,7 +92,10 @@
 						<div
 							role="button"
 							tabindex="-1"
-							class={cn('filter_opt', selectedCategoryFilter === category.key ? 'active' : '')}
+							class={cn(
+								'border border-primary text-primary px-2 py-1 rounded-[10px]',
+								selectedCategoryFilter === category.key ? 'bg-primary text-white' : ''
+							)}
 							on:click={() => handleChangeCategoryFilter(category.key)}
 							on:keydown
 						>
@@ -95,28 +104,14 @@
 					{/each}
 				</div>
 			</div>
-			<div class="mt-8 w-full">
+			<div class="mt-8 w-full flex items-center gap-2">
 				<Button
 					on:click={handleResetFilterValues}
 					variant="outline"
 					class="w-full h-12 text-lg rounded-full border-primary text-primary">Reset</Button
 				>
-				<Button class="mt-2 w-full h-12 text-lg rounded-full">Filter</Button>
+				<Button class="w-full h-12 text-lg rounded-full">Filter</Button>
 			</div>
 		</div>
 	</Drawer.Content>
 </Drawer.Root>
-
-<style>
-	.filter_opt {
-		@apply border border-primary text-primary px-2 py-1 rounded-[10px];
-	}
-
-	.filter_opt.rate {
-		@apply flex gap-1 items-center;
-	}
-
-	.filter_opt.active {
-		@apply bg-primary text-white;
-	}
-</style>

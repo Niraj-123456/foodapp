@@ -1,12 +1,20 @@
 <script lang="ts">
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
-	import { Bookmark, MessageSquareQuote, Share, Star } from 'lucide-svelte';
+	import { Bookmark, LogOut, MessageSquareQuote, Share, Star } from 'lucide-svelte';
 	import ShareRecipeModal from './ShareRecipeModal.svelte';
 	import RateRecipeDialog from './RateRecipeDialog.svelte';
 	import { goto } from '$app/navigation';
+	import { user } from './store/user';
 
 	let openShare: boolean = false,
 		openRate: boolean = false;
+
+	const handleLogout = async () => {
+		await window.miniapp.logout();
+		user.set(null);
+		goto('/');
+	};
+	
 </script>
 
 <DropdownMenu.Root>
@@ -29,6 +37,10 @@
 		<DropdownMenu.Item class="px-4 py-3">
 			<Bookmark class="w-4 h-4 text-gray-600 mr-2" />
 			<span> Save </span>
+		</DropdownMenu.Item>
+		<DropdownMenu.Item class="px-4 py-3" on:click={handleLogout}>
+			<LogOut class="w-4 h-4 text-gray-600 mr-2" />
+			<span> Logout </span>
 		</DropdownMenu.Item>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

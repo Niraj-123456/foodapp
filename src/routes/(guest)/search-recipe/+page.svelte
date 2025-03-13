@@ -14,7 +14,6 @@
 	let showLeftIcon: boolean = true;
 	let heading: string = 'Search recipes';
 	let showRightIcon: boolean = false;
-	let openRecipeShareDialog: boolean = false;
 	let openFilterDialog: boolean = false;
 	let searchMode: boolean = false;
 	let error: boolean = false;
@@ -49,7 +48,7 @@
 </script>
 
 <div class="w-full">
-	<TopNavigation {showLeftIcon} {heading} {showRightIcon} open={openRecipeShareDialog} />
+	<TopNavigation {showLeftIcon} {heading} {showRightIcon} />
 
 	<div class="flex items-center gap-4 mt-5">
 		<SearchInput {debounce} />

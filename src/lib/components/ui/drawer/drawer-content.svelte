@@ -18,7 +18,7 @@
 		)}
 		{...$$restProps}
 	>
-		<div class="bg-muted mx-auto mt-4 h-2 w-[100px] rounded-full" />
+		<div class="bg-gray-300 mx-auto mt-4 h-1.5 w-[100px] rounded-full" />
 		<slot />
 	</DrawerPrimitive.Content>
 </DrawerPrimitive.Portal>

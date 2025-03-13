@@ -1,3 +1,3 @@
-<div class="w-full px-6 py-6 grid">
+<div class="w-full p-4 grid">
 	<slot />
 </div>

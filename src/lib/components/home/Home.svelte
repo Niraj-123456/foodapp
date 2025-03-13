@@ -1,29 +1,36 @@
 <script lang="ts">
-	/** @type {import('./$types').PageData} */
 	import UserAvatar from '../../../assets/images/user_avatar.png';
-
 	import SearchInput from '$lib/SearchInput.svelte';
 	import RecipeCard from '$lib/RecipeCard.svelte';
 	import NewRecipeCard from '$lib/NewRecipeCard.svelte';
-	import LoadingUi from '$lib/LoadingUi.svelte';
+	import StickyFooter from '$lib/StickyFooter.svelte';
+	import CardLoadingUi from '$lib/common/CardLoadingUi.svelte';
+	import ScrollBox from '$lib/common/ScrollBox.svelte';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import CardLoadingUi from '$lib/common/CardLoadingUi.svelte';
-	import { Scroll } from 'lucide-svelte';
-	import ScrollBox from '$lib/common/ScrollBox.svelte';
 	import { cn } from '$lib/utils';
 
-	export let data: any;
 	let currentCategoryIndex = 0;
 	let isLoading: boolean = true;
 	let currentArea: string = 'American';
 	let recipeByAreas: any[] = [];
+	let categories: any[] = [];
 
 	$: currentArea, fetchRecipeByaArea();
 
 	const handleCategoryIndexChange = (area: any, idx: number) => {
 		currentCategoryIndex = idx;
 		currentArea = area?.strArea;
+	};
+
+	const fetchCategories = async () => {
+		try {
+			const res = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`);
+			const recipes = await res.json();
+			categories = recipes.meals;
+		} catch (ex) {
+			console.log('error 33', ex);
+		}
 	};
 
 	const fetchRecipeByaArea = async () => {
@@ -41,7 +48,7 @@
 	};
 
 	onMount(() => {
-		fetchRecipeByaArea();
+		fetchCategories();
 	});
 </script>
 
@@ -61,7 +68,7 @@
 	<SearchInput onFocus={() => goto('/search-recipe')} inputClass="h-12 mt-8" />
 
 	<ScrollBox>
-		{#each data?.areas as area, index}
+		{#each categories as area, index}
 			<button
 				class={cn(
 					currentCategoryIndex === index ? 'bg-primary text-white' : 'text-primary/80',
@@ -101,4 +108,6 @@
 			<NewRecipeCard />
 		</ScrollBox>
 	</div>
+
+	<StickyFooter />
 </div>

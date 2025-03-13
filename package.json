@@ -37,6 +37,7 @@
 	"dependencies": {
 		"clsx": "^2.1.1",
 		"image-salon-sdk": "^1.0.28",
+		"jwt-decode": "^4.0.0",
 		"lucide-svelte": "^0.424.0",
 		"tailwind-merge": "^2.5.2",
 		"tailwind-variants": "^0.2.1",
