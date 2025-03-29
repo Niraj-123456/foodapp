@@ -1,30 +1,50 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { signInWithPopup } from 'firebase/auth';
 	import { Button } from './components/ui/button/index';
 	import { user } from './store/user';
+	import { auth, db, googleProvider } from '../utils/firebase';
+	import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
 	let signingIn: boolean = false;
 
-	export const handleSocialLogin = async (platform: any, retryTimes: number = 2) => {
+	const handleLoginWithGoogle = async () => {
 		signingIn = true;
 		try {
-			const response = await window.miniapp.login(platform);
-			localStorage.setItem('foodapp_access-token', JSON.stringify(response.access_token));
-			localStorage.setItem('foodapp_user', JSON.stringify(response.user_profile));
-			user.set(response);
-			await goto('/');
-		} catch (err_1) {
-			if (retryTimes > 1) {
-				try {
-					await new Promise((resolve) => setTimeout(resolve, 1000));
-					return handleSocialLogin(platform, retryTimes - 1);
-				} catch (error) {
-					localStorage.clear();
-					throw error;
-				}
-			} else {
-				throw err_1;
+			const res = await signInWithPopup(auth, googleProvider);
+			const user_response = res.user;
+			const q = query(collection(db, 'users'), where('uid', '==', user_response.uid));
+			const docs = await getDocs(q);
+
+			if (docs.docs.length === 0) {
+				await addDoc(collection(db, 'users'), {
+					uid: user_response.uid,
+					email: user_response.email,
+					name: user_response.displayName,
+					photoURL: user_response.photoURL,
+					authProvider: 'google'
+				});
 			}
+
+			const accessToken = await user_response.getIdToken();
+
+			const u = {
+				access_token: accessToken,
+				isLoggedIn: true,
+				user_profile: {
+					id: user_response?.uid,
+					display_name: user_response?.displayName,
+					photo_url: user_response?.photoURL,
+					email: user_response?.email
+				}
+			};
+
+			localStorage.setItem('foodapp_access-token', JSON.stringify(accessToken));
+			localStorage.setItem('foodapp_user', JSON.stringify(u));
+			user.set(u);
+			await goto('/');
+		} catch (ex) {
+			console.log('google login error', ex);
 		} finally {
 			signingIn = false;
 		}
@@ -38,7 +58,7 @@
 			disabled={signingIn}
 			variant="ghost"
 			class="w-8 h-8 p-0 rounded-full disabled:bg-gray-100"
-			on:click={() => handleSocialLogin('facebook')}
+			on:click={() => console.log('facebook')}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +78,7 @@
 			disabled={signingIn}
 			variant="ghost"
 			class="w-8 h-8 p-0 rounded-full disabled:bg-gray-100"
-			on:click={() => handleSocialLogin('google')}
+			on:click={handleLoginWithGoogle}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

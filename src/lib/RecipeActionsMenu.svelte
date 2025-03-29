@@ -5,16 +5,18 @@
 	import RateRecipeDialog from './RateRecipeDialog.svelte';
 	import { goto } from '$app/navigation';
 	import { user } from './store/user';
+	import { signOut } from 'firebase/auth';
+	import { auth } from '../utils/firebase';
 
 	let openShare: boolean = false,
 		openRate: boolean = false;
 
 	const handleLogout = async () => {
-		await window.miniapp.logout();
+		await signOut(auth);
+		localStorage.clear();
 		user.set(null);
-		goto('/');
+		await goto('/');
 	};
-	
 </script>
 
 <DropdownMenu.Root>

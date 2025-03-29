@@ -36,6 +36,7 @@
 	"type": "module",
 	"dependencies": {
 		"clsx": "^2.1.1",
+		"firebase": "^11.4.0",
 		"image-salon-sdk": "^1.0.28",
 		"jwt-decode": "^4.0.0",
 		"lucide-svelte": "^0.424.0",

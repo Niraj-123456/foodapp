@@ -1,17 +1,14 @@
 export interface User {
 	user_profile: Profile;
 	access_token: string;
-	expires_in: string;
-	mini_app_id: string;
 	isLoggedIn: boolean;
 }
 
 export interface Profile {
 	id: string;
-	display_name: string;
-	photo_url: string;
-	email: string;
-	internal_profile: InternalProfile;
+	display_name: string | null;
+	photo_url: string | null;
+	email: string | null;
 }
 
 export interface InternalProfile {

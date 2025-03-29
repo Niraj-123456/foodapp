@@ -4,15 +4,17 @@
 	import RecipeCard from '$lib/RecipeCard.svelte';
 	import NewRecipeCard from '$lib/NewRecipeCard.svelte';
 	import StickyFooter from '$lib/StickyFooter.svelte';
-	import CardLoadingUi from '$lib/common/CardLoadingUi.svelte';
 	import ScrollBox from '$lib/common/ScrollBox.svelte';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { cn } from '$lib/utils';
+	import { user } from '$lib/store/user';
+	import Skeleton from '$lib/common/Skeleton.svelte';
 
 	let currentCategoryIndex = 0;
-	let isLoading: boolean = true;
-	let currentArea: string = 'American';
+	let isLoading = true;
+	let fetchingCategories = true;
+	let currentArea = 'American';
 	let recipeByAreas: any[] = [];
 	let categories: any[] = [];
 
@@ -24,12 +26,15 @@
 	};
 
 	const fetchCategories = async () => {
+		fetchingCategories = true;
 		try {
 			const res = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`);
 			const recipes = await res.json();
 			categories = recipes.meals;
 		} catch (ex) {
 			console.log('error 33', ex);
+		} finally {
+			fetchingCategories = false;
 		}
 	};
 
@@ -40,9 +45,10 @@
 				(res) => res.json()
 			);
 			const result = await res;
-			isLoading = false;
 			recipeByAreas = result?.meals;
 		} catch (ex) {
+			// handle error
+		} finally {
 			isLoading = false;
 		}
 	};
@@ -55,11 +61,15 @@
 <div class="w-full">
 	<div class="flex justify-between items-center">
 		<div class="user__name">
-			<h1 class="text-[22px] font-semibold">Hello Jega</h1>
-			<p class="text-xs text-gray-400 mt-3">What are you cooking today?</p>
+			<h1 class="text-[22px] font-semibold">Hello, {$user?.user_profile.display_name}</h1>
+			<p class="text-xs text-gray-400">What are you cooking today?</p>
 		</div>
-		<a class="w-10 h-10 bg-[#ffce80] rounded-[10px]" href="/profile">
-			<img src={UserAvatar} alt="user-avatar" class="w-full h-full object-cover" />
+		<a class="w-10 h-10 bg-[#ffce80] rounded-full overflow-hidden aspect-square" href="/profile">
+			<img
+				src={$user?.user_profile.photo_url}
+				alt="user-avatar"
+				class="w-full h-full object-cover rounded-full aspect-square"
+			/>
 		</a>
 	</div>
 
@@ -67,25 +77,33 @@
 
 	<SearchInput onFocus={() => goto('/search-recipe')} inputClass="h-12 mt-8" />
 
-	<ScrollBox>
-		{#each categories as area, index}
-			<button
-				class={cn(
-					currentCategoryIndex === index ? 'bg-primary text-white' : 'text-primary/80',
-					'py-2 px-5 rounded-[10px]'
-				)}
-				on:click={() => handleCategoryIndexChange(area, index)}
-			>
-				{area?.strArea}
-			</button>
-		{/each}
-	</ScrollBox>
+	{#if fetchingCategories}
+		<ScrollBox>
+			{#each [0, 1, 2, 4, 5] as _}
+				<Skeleton class="w-32 h-10" />
+			{/each}
+		</ScrollBox>
+	{:else}
+		<ScrollBox>
+			{#each categories as area, index}
+				<button
+					class={cn(
+						currentCategoryIndex === index ? 'bg-primary text-white' : 'text-primary/80',
+						'py-2 px-5 rounded-[10px]'
+					)}
+					on:click={() => handleCategoryIndexChange(area, index)}
+				>
+					{area?.strArea}
+				</button>
+			{/each}
+		</ScrollBox>
+	{/if}
 
 	<div>
 		{#if isLoading}
 			<ScrollBox>
-				{#each [0, 1, 2, 4] as idx}
-					<CardLoadingUi />
+				{#each [0, 1, 2, 4] as _}
+					<Skeleton class="w-[11rem] h-[280px]" />
 				{/each}
 			</ScrollBox>
 		{:else if recipeByAreas?.length < 0}

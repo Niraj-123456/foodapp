@@ -13,7 +13,7 @@
 	];
 </script>
 
-<div class="w-full fixed bottom-0 left-0 py-4 px-8 bg-white border border-gray-300 rounded-t-xl">
+<div class="w-full fixed bottom-0 left-0 py-4 px-6 bg-white border border-gray-300 rounded-t-xl">
 	<ul class="flex justify-between items-center">
 		{#each options as option}
 			<li>

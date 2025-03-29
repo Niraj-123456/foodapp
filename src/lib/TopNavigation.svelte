@@ -6,17 +6,18 @@
 	export let showLeftIcon: boolean, heading: string, showRightIcon: boolean;
 </script>
 
-<div class="main">
+<div class="w-full flex justify-between items-center sticky top-0 z-10 bg-white">
 	{#if showLeftIcon}
 		<Button variant="ghost" class="p-0" on:click={() => history.back()}><ArrowLeft /></Button>
 	{:else}
 		<div />
 	{/if}
 	{#if heading}
-		<h1>{heading}</h1>
+		<h1 class="text-lg font-semibold">{heading}</h1>
 	{:else}
 		<div />
 	{/if}
+
 	{#if showRightIcon}
 		<RecipeActionsMenu>
 			<Ellipsis />
@@ -25,17 +26,3 @@
 		<div />
 	{/if}
 </div>
-
-<style>
-	.main {
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.main > h1 {
-		font-size: 18px;
-		font-weight: 600;
-	}
-</style>

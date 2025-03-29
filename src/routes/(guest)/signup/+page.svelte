@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import InputField from '$lib/InputField.svelte';
 	import OtherSignInOption from '$lib/OtherSignInOption.svelte';
-
 	import { ArrowRight } from 'lucide-svelte';
+	import { onMount } from 'svelte';
+	import { user } from '$lib/store/user';
 
 	let name: string;
 	let email: string;
@@ -25,72 +27,80 @@
 			hasChecked
 		);
 	};
+
+	onMount(() => {
+		if ($user) {
+			goto('/');
+		}
+	});
 </script>
 
-<div class="signup__wrapper">
-	<div class="signup__heading">
-		<h1>Create an account</h1>
-		<p>Let’s help you set up your account, it won’t take long.</p>
-	</div>
-	<div class="signup__form">
-		<form on:submit|preventDefault={handleSubmit}>
-			<InputField
-				label="Name"
-				type="text"
-				id="name"
-				name="name"
-				placeholder="Enter Name"
-				bind:value={name}
-				inputClass="h-14"
-			/>
+{#if !$user}
+	<div class="signup__wrapper">
+		<div class="signup__heading">
+			<h1>Create an account</h1>
+			<p>Let’s help you set up your account, it won’t take long.</p>
+		</div>
+		<div class="signup__form">
+			<form on:submit|preventDefault={handleSubmit}>
+				<InputField
+					label="Name"
+					type="text"
+					id="name"
+					name="name"
+					placeholder="Enter Name"
+					bind:value={name}
+					inputClass="h-14"
+				/>
 
-			<InputField
-				label="Email"
-				type="email"
-				id="email"
-				name="email"
-				placeholder="Enter Email"
-				bind:value={email}
-				inputClass="h-14"
-			/>
-			<InputField
-				label="Password"
-				type="password"
-				id="password"
-				name="password"
-				placeholder="Enter Password"
-				bind:value={password}
-				inputClass="h-14"
-			/>
-			<InputField
-				label="Confirm Password"
-				type="password"
-				id="confirmPassword"
-				name="confirmPassword"
-				placeholder="Retype Password"
-				bind:value={confirmPassword}
-				inputClass="h-14"
-			/>
+				<InputField
+					label="Email"
+					type="email"
+					id="email"
+					name="email"
+					placeholder="Enter Email"
+					bind:value={email}
+					inputClass="h-14"
+				/>
+				<InputField
+					label="Password"
+					type="password"
+					id="password"
+					name="password"
+					placeholder="Enter Password"
+					bind:value={password}
+					inputClass="h-14"
+				/>
+				<InputField
+					label="Confirm Password"
+					type="password"
+					id="confirmPassword"
+					name="confirmPassword"
+					placeholder="Retype Password"
+					bind:value={confirmPassword}
+					inputClass="h-14"
+				/>
 
-			<div class="terms">
-				<input type="checkbox" name="terms" id="terms" bind:checked={hasChecked} />
-				<label for="terms">Accept terms & Condition</label>
+				<div class="terms">
+					<input type="checkbox" name="terms" id="terms" bind:checked={hasChecked} />
+					<label for="terms">Accept terms & Condition</label>
+				</div>
+
+				<div class="btn__group">
+					<Button type="submit" class="w-full h-12 text-base font-bold"
+						>Sign Up <ArrowRight class="ml-2" /></Button
+					>
+				</div>
+			</form>
+
+			<OtherSignInOption />
+
+			<div class="signin__link">
+				<span>Already a member? <a href={'/login'}>Sign In</a></span>
 			</div>
-
-			<div class="btn__group">
-				<Button type="submit" class="w-full h-12 text-base font-bold"
-					>Sign Up <ArrowRight class="ml-2" /></Button
-				>
-			</div>
-		</form>
-
-		<OtherSignInOption />
-
-		<div class="signin__link">
-			<span>Already a member? <a href={'/login'}>Sign In</a></span>
 		</div>
 	</div>
-</div>
+{/if}
 
 <style>
 	.signup__wrapper {

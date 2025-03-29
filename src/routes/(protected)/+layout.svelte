@@ -3,12 +3,12 @@
 	import StickyFooter from '$lib/StickyFooter.svelte';
 	import { user } from '$lib/store/user';
 
-	$: if (!$user?.user_profile) {
+	$: if (!$user) {
 		goto('/login');
 	}
 </script>
 
-{#if $user?.user_profile}
+{#if $user}
 	<div class="w-full h-full p-4 pb-28 grid">
 		<slot />
 		<StickyFooter />

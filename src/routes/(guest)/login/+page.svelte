@@ -4,6 +4,9 @@
 	import OtherSignInOption from '$lib/OtherSignInOption.svelte';
 	import { ArrowRight } from 'lucide-svelte';
 	import { emailRegex } from '../../../utils/helperString';
+	import { onMount } from 'svelte';
+	import { user } from '$lib/store/user';
+	import { goto } from '$app/navigation';
 
 	let email: string = '';
 	let password: string = '';
@@ -38,50 +41,58 @@
 		console.log('email', email);
 		console.log('password', password);
 	};
+
+	onMount(() => {
+		if ($user) {
+			goto('/');
+		}
+	});
 </script>
 
-<div class="main">
-	<h1 class="text-4xl font-semibold">Login</h1>
+{#if !$user}
+	<div class="main">
+		<h1 class="text-4xl font-semibold">Login</h1>
 
-	<form class="form" on:submit|preventDefault={handleSubmit}>
-		<InputField
-			label="Email"
-			type="email"
-			name="email"
-			id="email"
-			placeholder="Enter Email"
-			bind:value={email}
-			hasError={errors.has('email')}
-			errorMsg={errors.get('email')}
-			inputClass="h-14"
-		/>
+		<form class="form" on:submit|preventDefault={handleSubmit}>
+			<InputField
+				label="Email"
+				type="email"
+				name="email"
+				id="email"
+				placeholder="Enter Email"
+				bind:value={email}
+				hasError={errors.has('email')}
+				errorMsg={errors.get('email')}
+				inputClass="h-14"
+			/>
 
-		<InputField
-			label="Password"
-			type="password"
-			name="password"
-			id="password"
-			placeholder="Enter password"
-			bind:value={password}
-			hasError={errors.has('password')}
-			errorMsg={errors.get('password')}
-			inputClass="h-14"
-		/>
+			<InputField
+				label="Password"
+				type="password"
+				name="password"
+				id="password"
+				placeholder="Enter password"
+				bind:value={password}
+				hasError={errors.has('password')}
+				errorMsg={errors.get('password')}
+				inputClass="h-14"
+			/>
 
-		<div class="forgot__pwdlink"><a href={'#'}>Forgot Password?</a></div>
-		<div class="btn__group">
-			<Button type="submit" class="w-full h-12 text-base font-bold"
-				>{'Login'} <ArrowRight class="ml-2" /></Button
-			>
-		</div>
+			<div class="forgot__pwdlink"><a href={'#'}>Forgot Password?</a></div>
+			<div class="btn__group">
+				<Button type="submit" class="w-full h-12 text-base font-bold"
+					>{'Login'} <ArrowRight class="ml-2" /></Button
+				>
+			</div>
 
-		<OtherSignInOption />
+			<OtherSignInOption />
 
-		<div class="dont__have__account">
-			<span>Don't have an account? <a href={'/signup'}>Sign Up</a></span>
-		</div>
-	</form>
-</div>
+			<div class="dont__have__account">
+				<span>Don't have an account? <a href={'/signup'}>Sign Up</a></span>
+			</div>
+		</form>
+	</div>
+{/if}
 
 <style>
 	.main {

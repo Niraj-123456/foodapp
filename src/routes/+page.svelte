@@ -5,8 +5,6 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Home from '$lib/components/home/Home.svelte';
 	import { user } from '$lib/store/user';
-
-	$: console.log('user', $user);
 </script>
 
 {#if $user?.isLoggedIn}

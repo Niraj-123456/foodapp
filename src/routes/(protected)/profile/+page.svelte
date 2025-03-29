@@ -1,10 +1,8 @@
 <script lang="ts">
-	import RateRecipeDialog from '$lib/RateRecipeDialog.svelte';
 	import RecipeVideoCard from '$lib/RecipeVideoCard.svelte';
 	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
-	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
+	import { user } from '$lib/store/user';
 	import TopNavigation from '$lib/TopNavigation.svelte';
-	import ChefProfileImg from '../../../assets/images/chef-profile.png';
 
 	const navOptions = ['Recipe', 'Videos', 'Tag'];
 	let currentOption = 0;
@@ -14,7 +12,13 @@
 	<TopNavigation showLeftIcon={true} heading="Profile" showRightIcon={true} />
 	<div class="profile__wrapper">
 		<div class="profile">
-			<img src={ChefProfileImg} alt="profile" class="profile__img" />
+			<div class="w-12 h-12 aspect-square rounded-full bg-gray-200 overflow-hidden">
+				<img
+					src={$user?.user_profile.photo_url}
+					alt="profile"
+					class="w-full h-full aspect-square object-contain"
+				/>
+			</div>
 			<div class="recipe__count">
 				Recipe <span>4</span>
 			</div>
@@ -93,13 +97,6 @@
 		font-size: 22px;
 		font-weight: 600;
 		color: var(--color-black);
-	}
-
-	.profile__img {
-		width: 89px;
-		height: 89px;
-		border-radius: 50%;
-		object-fit: contain;
 	}
 
 	.profile__desc {
