@@ -1,6 +1,6 @@
 <script>
 	import * as Dialog from '$lib/components/ui/dialog';
-	import UploadImage from '$lib/UploadImage.svelte';
+	import UploadImage from '$lib/components/UploadImage.svelte';
 </script>
 
 <Dialog.Root>

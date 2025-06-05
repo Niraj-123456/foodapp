@@ -1,6 +1,6 @@
 <script>
 	import Button from '$lib/components/ui/button/button.svelte';
-	import TopNavigation from '$lib/TopNavigation.svelte';
+	import TopNavigation from '$lib/components/TopNavigation.svelte';
 	import * as Avatar from '$lib/components/ui/avatar/index';
 	import { Textarea } from '$lib/components/ui/textarea/index';
 	import { Badge } from '$lib/components/ui/badge/index';
