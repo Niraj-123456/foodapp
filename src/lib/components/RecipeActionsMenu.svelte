@@ -4,9 +4,9 @@
 	import ShareRecipeModal from './ShareRecipeModal.svelte';
 	import RateRecipeDialog from './RateRecipeDialog.svelte';
 	import { goto } from '$app/navigation';
-	import { user } from './store/user';
+	import { user } from '../../store/user';
 	import { signOut } from 'firebase/auth';
-	import { auth } from '../utils/firebase';
+	import { auth } from '../../utils/firebase';
 
 	let openShare: boolean = false,
 		openRate: boolean = false;

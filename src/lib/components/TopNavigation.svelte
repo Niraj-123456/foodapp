@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ArrowLeft, Ellipsis } from 'lucide-svelte';
-	import Button from './components/ui/button/button.svelte';
+	import { Button } from '$lib/components/ui/button/index';
 	import RecipeActionsMenu from './RecipeActionsMenu.svelte';
 
 	export let showLeftIcon: boolean, heading: string, showRightIcon: boolean;

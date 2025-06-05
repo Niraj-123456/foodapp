@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
-	import StickyFooter from '$lib/StickyFooter.svelte';
-	import { user } from '$lib/store/user';
+	import StickyFooter from '$lib/components/StickyFooter.svelte';
+	import { user } from '../../store/user';
 
 	$: if (!$user) {
 		goto('/login');

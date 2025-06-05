@@ -1,6 +1,6 @@
 <script>
 	import { Star, Clock, Bookmark, Play } from 'lucide-svelte';
-	import RecipeImg2 from '../assets/images/recipe_2.png';
+	import RecipeImg2 from '../../assets/images/recipe_2.png';
 </script>
 
 <div class="card">
@@ -21,7 +21,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
 	@keyframes slideFromLeft {
 		from {
 			transform: translateX(-100%);

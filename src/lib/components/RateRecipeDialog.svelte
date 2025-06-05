@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { Star } from 'lucide-svelte';
-	import Button from '$lib/components/ui/button/button.svelte';
+	import { Button } from '$lib/components/ui/button/index';
 	import * as Dialog from '$lib/components/ui/dialog/index';
 	import * as Drawer from '$lib/components/ui/drawer/index';
-	import { cn } from './utils';
-	import { isDesktop } from './store/media-query';
+	import { cn } from '$lib/utils';
+	import { isDesktop } from '../../store/media-query';
 
 	export let open: boolean = false;
 

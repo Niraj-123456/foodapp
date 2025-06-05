@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Input from './components/ui/input/input.svelte';
-	import Label from './components/ui/label/label.svelte';
-	import { cn } from './utils';
+	import { Input } from '$lib/components/ui/input/index';
+	import { Label } from '$lib/components/ui/label/index';
+	import { cn } from '$lib/utils';
 
 	export let label: string;
 	export let type: string = 'text';

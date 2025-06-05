@@ -2,7 +2,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index';
 	import * as Drawer from '$lib/components/ui/drawer/index';
-	import { isDesktop } from './store/media-query';
+	import { isDesktop } from '../../store/media-query';
 	export let open: boolean;
 </script>
 

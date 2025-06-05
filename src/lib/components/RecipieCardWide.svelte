@@ -1,6 +1,6 @@
 <script>
 	import { Star, Clock, Bookmark } from 'lucide-svelte';
-	import RecipeImg2 from '../assets/images/recipe_3.jpeg';
+	import RecipeImg2 from '../../assets/images/recipe_3.jpeg';
 </script>
 
 <div class="card">

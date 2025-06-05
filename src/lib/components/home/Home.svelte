@@ -1,15 +1,15 @@
 <script lang="ts">
-	import UserAvatar from '../../../assets/images/user_avatar.png';
-	import SearchInput from '$lib/SearchInput.svelte';
-	import RecipeCard from '$lib/RecipeCard.svelte';
-	import NewRecipeCard from '$lib/NewRecipeCard.svelte';
-	import StickyFooter from '$lib/StickyFooter.svelte';
-	import ScrollBox from '$lib/common/ScrollBox.svelte';
+	import * as Avatar from '$lib/components/ui/avatar/index';
+	import Skeleton from '$lib/components/common/Skeleton.svelte';
+	import SearchInput from '../SearchInput.svelte';
+	import RecipeCard from '../RecipeCard.svelte';
+	import NewRecipeCard from '../NewRecipeCard.svelte';
+	import StickyFooter from '../StickyFooter.svelte';
+	import ScrollBox from '$lib/components/common/ScrollBox.svelte';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { cn } from '$lib/utils';
-	import { user } from '$lib/store/user';
-	import Skeleton from '$lib/common/Skeleton.svelte';
+	import { user } from '../../../store/user';
 
 	let currentCategoryIndex = 0;
 	let isLoading = true;
@@ -64,12 +64,14 @@
 			<h1 class="text-[22px] font-semibold">Hello, {$user?.user_profile.display_name}</h1>
 			<p class="text-xs text-gray-400">What are you cooking today?</p>
 		</div>
-		<a class="w-10 h-10 bg-[#ffce80] rounded-full overflow-hidden aspect-square" href="/profile">
-			<img
-				src={$user?.user_profile.photo_url}
-				alt="user-avatar"
-				class="w-full h-full object-cover rounded-full aspect-square"
-			/>
+
+		<a href="/profile">
+			<Avatar.Root class="cursor-pointer" role="button" tabindex={0}>
+				<Avatar.Image src={$user?.user_profile.photo_url} alt="" />
+				<Avatar.Fallback class="bg-gray-300 text-lg font-semibold text-gray-600"
+					>{$user?.user_profile.display_name?.substring(0, 1)}</Avatar.Fallback
+				>
+			</Avatar.Root>
 		</a>
 	</div>
 

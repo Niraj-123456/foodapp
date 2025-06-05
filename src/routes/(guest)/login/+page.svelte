@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
-	import InputField from '$lib/InputField.svelte';
-	import OtherSignInOption from '$lib/OtherSignInOption.svelte';
+	import InputField from '$lib/components/InputField.svelte';
+	import OtherSignInOption from '$lib/components/OtherSignInOption.svelte';
 	import { ArrowRight } from 'lucide-svelte';
 	import { emailRegex } from '../../../utils/helperString';
 	import { onMount } from 'svelte';
-	import { user } from '$lib/store/user';
+	import { user } from '../../../store/user';
 	import { goto } from '$app/navigation';
 
 	let email: string = '';

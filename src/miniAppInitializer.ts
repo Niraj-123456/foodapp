@@ -1,4 +1,4 @@
-import type { User } from '$lib/types/user';
+import type { User } from './types/user';
 import { jwtDecode } from 'jwt-decode';
 
 declare global {

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import TopNavigation from '$lib/TopNavigation.svelte';
-	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
+	import TopNavigation from '$lib/components/TopNavigation.svelte';
+	import RecipieCardWide from '$lib/components/RecipieCardWide.svelte';
 </script>
 
 <div class="main">

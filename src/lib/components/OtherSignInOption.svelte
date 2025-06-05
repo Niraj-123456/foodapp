@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { signInWithPopup } from 'firebase/auth';
-	import { Button } from './components/ui/button/index';
-	import { user } from './store/user';
-	import { auth, db, googleProvider } from '../utils/firebase';
+	import { Button } from '$lib/components/ui/button/index';
+	import { user } from '../../store/user';
+	import { auth, db, googleProvider } from '../../utils/firebase';
 	import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
 	let signingIn: boolean = false;

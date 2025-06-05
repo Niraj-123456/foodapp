@@ -1,8 +1,7 @@
 <script>
 	import { Star, Clock } from 'lucide-svelte';
-
-	import RecipeOwner from '../assets/images/recipe_owner.png';
-	import NewRecipeImg from '../assets/images/new_recipe_1.png';
+	import RecipeOwner from '../../assets/images/recipe_owner.png';
+	import NewRecipeImg from '../../assets/images/new_recipe_1.png';
 </script>
 
 <div class="w-72 shadow-custom rounded-[10px] p-3 relative flex flex-col flex-shrink-0">

@@ -4,7 +4,7 @@
 	import ChefHatIcon from '../assets/images/chef_hat.png';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Home from '$lib/components/home/Home.svelte';
-	import { user } from '$lib/store/user';
+	import { user } from '../store/user';
 </script>
 
 {#if $user?.isLoggedIn}

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { HandPlatter } from 'lucide-svelte';
-	import Platter from '../assets/icons/platter.svg';
-	import Tomato from '../assets/images/tomato.png';
+	import Tomato from '../../assets/images/tomato.png';
 
 	export let ingredients: string[];
 	export let procedures: string[];

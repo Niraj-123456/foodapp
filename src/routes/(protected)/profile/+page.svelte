@@ -1,8 +1,8 @@
 <script lang="ts">
-	import RecipeVideoCard from '$lib/RecipeVideoCard.svelte';
-	import RecipieCardWide from '$lib/RecipieCardWide.svelte';
-	import { user } from '$lib/store/user';
-	import TopNavigation from '$lib/TopNavigation.svelte';
+	import RecipeVideoCard from '$lib/components/RecipeVideoCard.svelte';
+	import RecipieCardWide from '$lib/components/RecipieCardWide.svelte';
+	import TopNavigation from '$lib/components/TopNavigation.svelte';
+	import { user } from '../../../store/user';
 
 	const navOptions = ['Recipe', 'Videos', 'Tag'];
 	let currentOption = 0;

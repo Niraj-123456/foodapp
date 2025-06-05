@@ -1,35 +1,21 @@
 <script lang="ts">
 	import { FileText } from 'lucide-svelte';
-	import TopNavigation from '$lib/TopNavigation.svelte';
-	import StickyFooter from '$lib/StickyFooter.svelte';
-	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
+	import TopNavigation from '$lib/components/TopNavigation.svelte';
 
 	let options = ['All', 'Read', 'Unread'];
 	let currentOption: number = 0;
-	let openRecipeShareDialog: boolean = false;
-
-	const handleOpenRecipeShareDialog = () => {
-		openRecipeShareDialog = true;
-	};
 </script>
 
 <div class="main">
-	<TopNavigation
-		showLeftIcon={true}
-		heading="Notifications"
-		showRightIcon={false}
-		open={openRecipeShareDialog}
-	/>
+	<TopNavigation showLeftIcon={true} heading="Notifications" showRightIcon={false} />
 
 	<div class="notification__navs">
 		<ul>
 			{#each options as option, index}
-				<li
-					class={currentOption === index ? 'active' : ''}
-					on:click={() => (currentOption = index)}
-					on:keydown
-				>
-					{option}
+				<li class={currentOption === index ? 'active' : ''}>
+					<span role="button" tabindex="0" on:click={() => (currentOption = index)} on:keydown>
+						{option}
+					</span>
 				</li>
 			{/each}
 		</ul>
@@ -227,7 +213,7 @@
 	{/if}
 </div>
 
-<style>
+<style lang="postcss">
 	@keyframes slideFromLeft {
 		from {
 			transform: translateX(-100%);

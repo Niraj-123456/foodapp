@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
-	import IngredientAndProcedure from '$lib/IngredientAndProcedure.svelte';
-	import ShareRecipeModal from '$lib/ShareRecipeModal.svelte';
-	import TopNavigation from '$lib/TopNavigation.svelte';
+	import IngredientAndProcedure from '$lib/components/IngredientAndProcedure.svelte';
+	import ShareRecipeModal from '$lib/components/ShareRecipeModal.svelte';
+	import TopNavigation from '$lib/components/TopNavigation.svelte';
 	import Owner from '../../../../assets/images/chef.png';
 
 	import { Bookmark, Clock, Heart, MapPin, Play, Star } from 'lucide-svelte';

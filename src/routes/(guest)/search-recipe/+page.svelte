@@ -1,11 +1,11 @@
 <script lang="ts">
 	import SearchFilter from '$lib/components/SearchFilter.svelte';
-	import SearchCard from '$lib/SearchCard.svelte';
-	import SearchInput from '$lib/SearchInput.svelte';
-	import TopNavigation from '$lib/TopNavigation.svelte';
+	import SearchCard from '$lib/components/SearchCard.svelte';
+	import SearchInput from '$lib/components/SearchInput.svelte';
+	import TopNavigation from '$lib/components/TopNavigation.svelte';
 	import { Skeleton } from '$lib/components/ui/skeleton/index';
 	import { SlidersHorizontal } from 'lucide-svelte';
-	import RecipeNotFound from '$lib/icons/RecipeNotFound.svelte';
+	import RecipeNotFound from '../../../assets/illustrations/RecipeNotFound.svelte';
 
 	let searchQuery: string = '';
 	let foods: any[] = [];

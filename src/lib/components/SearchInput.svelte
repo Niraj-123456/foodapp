@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Input } from 'flowbite-svelte';
 	import { Search } from 'lucide-svelte';
-	import { cn } from './utils';
+	import { cn } from '$lib/utils';
 	export let debounce: (e: any) => void = () => {};
 	export let onFocus: () => Promise<void> | void = () => {};
 
